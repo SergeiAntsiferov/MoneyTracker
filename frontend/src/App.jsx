@@ -1,10 +1,10 @@
-import './App.scss';
 import AppRouter from './router/AppRouter';
+import './App.scss';
 
 function App() {
   return (
     <div className="App">
-      <AppRouter/>
+      <AppRouter />
     </div>
   );
 }

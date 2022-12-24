@@ -1,2 +1,34 @@
+:root { 
+    // declaring variables in root to call them from js
+    --font_color_light: #E7E7E7;  
+    --primary_color_light: #22409A;
+    --secondary_color_light_1: #0F1955;
+    --secondary_color_light_2: #0F1955;
+
+    --font_color_dark: #000000;
+    --primary_color_dark: #22409A;
+    --secondary_color_dark_1: #0F1955;
+    --secondary_color_dark_2: #0F1955;
+
+    --font_size: 16px;
+  }
+
+    // declaring scss variables
+    $font_color_light: var(--font_color_light); // light theme - font color
+    $primary_color_light: var(--primary_color_light); // light theme - main color
+    $secondary_color_light_1: var(--secondary_color_light_1); // light theme - secondary color 1
+    $secondary_color_light_2: var(--secondary_color_light_3); // light theme - secondary color 2
+    
+    $font_color_dark: var(--font_color_dark); // dark theme - font color
+    $primary_color_dark: var(--primary_color_dark); // dark theme - main color
+    $secondary_color_dark_1: var(--secondary_color_dark_1); // dark theme - secondary color 1
+    $secondary_color_dark_1: var(--secondary_color_dark_1); // dark theme - secondary color 2
+    
+    $font_size: var(--font_size); // default font size
+
 .App {
+    position: relative;
+    height: 100vh;
+    font-size: $font_size;
+    white-space: pre-line; 
 }
