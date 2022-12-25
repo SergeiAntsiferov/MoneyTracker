@@ -18,6 +18,11 @@
     ],
     "rules": {
         "react/react-in-jsx-scope": "off",
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "consistent-return": "off",
+        "react/prop-types": "off",
+        "no-unused-vars": "off",
+        "default-param-last": "off",
+        "no-use-before-define": "off"
     }
 }

@@ -1,36 +1,36 @@
-import React from "react";
+import React from 'react';
 
 class ErrorBoundary extends React.Component {
-
   constructor(props) {
     super(props);
-    this.state = { 
-      hasError: false, 
-      fetch_error: false // ошибка сети
-    }
+    this.state = {
+      hasError: false,
+    };
   }
-  
-  static getDerivedStateFromError(error) {
+
+  static getDerivedStateFromError() {
     // Обновить состояние с тем, чтобы следующий рендер показал запасной UI.
     return { hasError: true };
   }
-  
 
   async componentDidCatch(error, errorInfo) { // Логирование ошибки
-    const componentName = this.props.children.type.name
-    console.log(componentName, error)
+    const { children } = this.props;
+    const componentName = children.type.name;
+    console.log(componentName, error);
   }
 
   render() { // Рендер запасного UI
-    if (this.state.hasError) {
+    const { children } = this.props;
+    const { hasError } = this.state;
+    if (hasError) {
       return (
-          <div className="main">
-            <p className="main__title">Что-то пошло не так...</p>
-            <p className="main__title">Обновите страницу, если ситуация повторяется - обратитесь в службу поддержки</p>
-          </div>
-      )
-    } else return this.props.children
+        <div className="main">
+          <p className="main__title">Что-то пошло не так...</p>
+          <p className="main__title">Обновите страницу, если ситуация повторяется - обратитесь в службу поддержки</p>
+        </div>
+      );
+    } return children;
   }
 }
-  
-export default ErrorBoundary
+
+export default ErrorBoundary;
