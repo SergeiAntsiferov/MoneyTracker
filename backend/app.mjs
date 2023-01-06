@@ -1,4 +1,3 @@
-'use strict'
 import express, { json } from "express"; // express library
 import cors from "cors"; // CORS module to prevent CORS errors 
 import ('./routes/routes.mjs') // routes handling

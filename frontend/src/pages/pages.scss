@@ -1,0 +1,14 @@
+@import '../App.scss';
+
+.page {
+    display: flex;
+    justify-content: flex-start;
+
+    width: 100%;
+    height: $page_height;
+
+    padding: 16px;
+
+    background-color: $background_color;
+
+}

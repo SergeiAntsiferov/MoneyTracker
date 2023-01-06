@@ -1,29 +1,35 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import AppRouter from './router/AppRouter';
-import './App.scss';
 import { catchHandler } from './utils/error_handling/error_handling';
 import { sendData } from './utils/functions/basic';
 import { createAction } from './redux/store';
+import Header from './components/Header';
+import './App.scss';
+import './pages/pages.scss';
+import './components/components.scss';
+import { changeCssProperty } from './utils/functions/others';
 
 function App() {
   useEffect(() => {
-    getString();
+    getTheme();
   }, []);
 
-  async function getString() {
+  // get current color theme
+  async function getTheme() {
     try {
-      const result = await sendData('POST', '/');
+      const result = await sendData('GET', '/get_theme');
       if (result) {
-        createAction('SET_STATE', result);
+        createAction('SET_CURRENT_THEME', result);
+        changeCssProperty(result?.styles);
       } else return;
     } catch (error) {
-      catchHandler(error, 'getString');
+      catchHandler(error, 'getTheme');
     }
   }
 
   return (
     <div className="App">
+      <Header />
       <AppRouter />
     </div>
   );

@@ -1,0 +1,125 @@
+@import '../App.scss';
+
+.header {
+
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    height: $header_height;
+    padding: 0 16px;
+    background-color: $secondary_color_2;
+    color: $font_color;
+
+
+    &__title {
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
+        font-size: 1.3rem;
+        color: $font_color;
+    }
+
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    width: auto;
+    height: 100%;
+
+    background-color: $secondary_color_2;
+    
+    &__button {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 100%;
+        width: 100px;
+
+        transition: .3s;
+
+        &::after {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            background-color: $primary_color;
+            transition: .3s;
+        }
+        
+        &:hover {
+            box-shadow: 0 -2px 2px 1px $secondary_color_1;
+            transition: .3s;
+
+            &::after {
+                width: 100%;
+                transition: .3s;
+            }
+        }
+
+        &:active {
+            box-shadow: 0 -2px 0px 0px $secondary_color_1;
+        }
+
+        &_active {
+
+            &::after {
+                content: "";
+                position: absolute;
+                display: block;
+                width: 100%;
+                height: 3px;
+                bottom: 0;
+                background-color: $primary_color;
+                transition: .3s;
+            }
+        }
+    }
+}
+
+// Переключатель
+.toggle {
+    border: 1px solid $secondary_color_2;
+    position: relative;
+    min-width: 68px;
+    width: 68px;
+    height: 32px;
+    border-radius: 6px;
+    box-shadow: $default-shadow_inset;
+    background: $background_color;
+    transition: .3s;
+    user-select: none;
+
+    &:hover {
+        cursor: pointer;
+        box-shadow: $default-shadow_inset_active;
+    }
+
+    &__circle {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        transform: translate(3px, 3px);
+        border-radius: 4px;
+        transition: .3s;
+        background: $secondary_color_1;
+        box-shadow: 1px 1px 1px 0px $secondary_color_2
+    }
+
+    &_active { 
+        border: 1px solid $secondary_color_2;
+        transition: .3s;
+    
+        & .toggle__circle {
+            transform: translate(38px, 3px);
+            background: $primary_color;
+        }
+    }
+}

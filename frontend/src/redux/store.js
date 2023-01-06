@@ -1,27 +1,27 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { catchHandler } from '../utils/error_handling/error_handling';
 
-const reducerDefault = {
-  test: '1',
+const generalReducerDefault = {
+  current_theme: {},
 };
 
-function reducer(state = reducerDefault, action) {
+function generalReducer(state = generalReducerDefault, action) {
   try {
     switch (action.type) {
-      case 'SET_STATE':
-        return { ...state, test: action.payload };
+      case 'SET_CURRENT_THEME':
+        return { ...state, current_theme: action.payload };
       default:
         return state;
     }
   } catch (error) {
-    catchHandler(error, 'reducer');
+    catchHandler(error, 'generalReducer');
   }
 }
 
 // Создание хранилища (Используется в HOC <Provider> )
 export const store = configureStore({
   reducer: {
-    reducer,
+    general: generalReducer,
   },
 });
 
