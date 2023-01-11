@@ -18,10 +18,29 @@ function generalReducer(state = generalReducerDefault, action) {
   }
 }
 
+const showReducerDefault = {
+  select: {},
+};
+
+function showReducer(state = showReducerDefault, action) {
+  try {
+    switch (action.type) {
+      case 'TOGGLE_SELECT':
+        return { ...state, select: { [action.payload.key]: action.payload.value } };
+
+      default:
+        return state;
+    }
+  } catch (error) {
+    catchHandler(error, 'showReducer');
+  }
+}
+
 // Создание хранилища (Используется в HOC <Provider> )
 export const store = configureStore({
   reducer: {
     general: generalReducer,
+    visibility: showReducer,
   },
 });
 

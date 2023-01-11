@@ -4,10 +4,12 @@ import { catchHandler } from './utils/error_handling/error_handling';
 import { sendData } from './utils/functions/basic';
 import { createAction } from './redux/store';
 import Header from './components/Header';
+import { changeCssProperty } from './utils/functions/others';
 import './App.scss';
 import './pages/pages.scss';
 import './components/components.scss';
-import { changeCssProperty } from './utils/functions/others';
+import './components/UI/ui.scss';
+import './components/UI/Buttons/buttons.module.scss';
 
 function App() {
   useEffect(() => {

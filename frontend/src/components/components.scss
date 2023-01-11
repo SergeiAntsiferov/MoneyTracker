@@ -14,7 +14,9 @@
     &__title {
         display: flex;
         align-items: center;
+
         text-transform: uppercase;
+        text-align: end;
         font-size: 1.3rem;
         color: $font_color;
     }
@@ -80,46 +82,6 @@
                 background-color: $primary_color;
                 transition: .3s;
             }
-        }
-    }
-}
-
-// Переключатель
-.toggle {
-    border: 1px solid $secondary_color_2;
-    position: relative;
-    min-width: 68px;
-    width: 68px;
-    height: 32px;
-    border-radius: 6px;
-    box-shadow: $default-shadow_inset;
-    background: $background_color;
-    transition: .3s;
-    user-select: none;
-
-    &:hover {
-        cursor: pointer;
-        box-shadow: $default-shadow_inset_active;
-    }
-
-    &__circle {
-        position: absolute;
-        width: 24px;
-        height: 24px;
-        transform: translate(3px, 3px);
-        border-radius: 4px;
-        transition: .3s;
-        background: $secondary_color_1;
-        box-shadow: 1px 1px 1px 0px $secondary_color_2
-    }
-
-    &_active { 
-        border: 1px solid $secondary_color_2;
-        transition: .3s;
-    
-        & .toggle__circle {
-            transform: translate(38px, 3px);
-            background: $primary_color;
         }
     }
 }
