@@ -2,12 +2,13 @@ import React from 'react';
 
 function Input(props) {
   const {
-    onChange, onBlur, value, defaultValue,
+    onChange, onBlur, value, defaultValue, placeholder, invalid,
   } = props;
 
   return (
     <input
-      className="input"
+      placeholder={placeholder}
+      className={invalid ? 'input input_invalid' : 'input'}
       onChange={onChange}
       onBlur={onBlur}
       value={value}
