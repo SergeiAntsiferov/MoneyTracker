@@ -10,9 +10,9 @@ function Settings() {
         <Setting title="Toggle colour scheme">
           <ThemeToggle />
         </Setting>
-        <Setting title="Categories" openable>
+        {/* <Setting title="Categories" openable>
           <Categories />
-        </Setting>
+        </Setting> */}
       </div>
     </div>
   );

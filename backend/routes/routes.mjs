@@ -1,7 +1,8 @@
 import { app, jsonParser } from '../app.mjs';
 import catch_handler from '../functions/catch_handler.mjs'
-import { db } from '../connections/mongo_connect.mjs'
+import { db, sample_supplies } from '../connections/mongo_connect.mjs'
 import { ObjectID } from '../connections/mongo_connect.mjs';
+
 
 function modifiyIdKeys(array) {
     return array.map((item) => {
@@ -30,7 +31,6 @@ app.post ("/change_theme", jsonParser, async (request, response) => {
         const { current_theme } = request.body
 
         const requestedTopic = current_theme?.type === "dark" ? "light" : "dark"
-
         const styles = db.collection('styles');
 
         await styles.updateOne({type: current_theme?.type}, {$set: {active: false}})
@@ -46,7 +46,7 @@ app.post ("/change_theme", jsonParser, async (request, response) => {
     }
 });
 
-// Get current color theme
+// Get categories
 app.get("/get_categories", jsonParser, async (request, response) => {
     try {
         const categories = db.collection('categories');
@@ -60,7 +60,32 @@ app.get("/get_categories", jsonParser, async (request, response) => {
     }
 });
 
-// Get current color theme
+// Get transactions
+app.post("/get_transactions", jsonParser, async (request, response) => {
+    try {
+        const { range } = request.body
+        
+        const sales = sample_supplies.collection('sales');
+        let result;
+
+        if (range) {
+            const prapareRange = range.map(id => ObjectID(id))
+            result = await sales.find({ 
+                _id : { 
+                    $in : prapareRange 
+                }
+            }).toArray(); // get data in range
+        } else {
+            result = await sales.distinct("_id", {}) // get only id
+        }
+        
+        response.json(result) // send response to frontend
+    } catch(error) { 
+        catch_handler(error, "/get_transactions") 
+    }
+});
+
+// categories handling
 app.post("/handle_categories", jsonParser, async (request, response) => {
     try {
 
@@ -89,11 +114,6 @@ app.post("/handle_categories", jsonParser, async (request, response) => {
 
             default: response.json("default")
         }
-        // const query = { active: true };
-        
-        // const result = await categories.find().toArray();
-        // const prepareResult = modifiyIdKeys(result)
-        // console.log(prepareResult)
     } catch(error) { 
         catch_handler(error, "/handle_categories") 
     }

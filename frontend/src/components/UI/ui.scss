@@ -1,6 +1,5 @@
 @import '../../App.scss';
 
-
 .input {
     width: 100%;
     max-width: 300px;
@@ -10,7 +9,7 @@
     
     text-align: center;
     border: none;
-    border-radius: 4px;
+    border-radius: $radius;
     outline: none;
     box-shadow: $default-shadow_inset;
     transition: 0.3s;
@@ -97,7 +96,7 @@
     height: 40px;
     user-select: none;
     background-color: $background_color;
-    border-radius: 4px;
+    border-radius: $radius;
 
     &__header {
         position: relative;
@@ -112,7 +111,7 @@
 
         outline: none;
         // border: 1px solid black;
-        border-radius: 4px;
+        border-radius: $radius;
         box-shadow: $default-shadow_inset;
         transition: .3s;
         font-size: 1.05rem;
@@ -173,7 +172,7 @@
         padding: 12px 0;
         overflow-y: auto;
         overflow-x: hidden;
-        border-radius: 4px;    
+        border-radius: $radius;
         box-shadow: $default-shadow_active;
         background-color: $background_color;
         opacity: 1;
@@ -235,4 +234,48 @@
     }
 
 
+}
+
+.loader {
+        position: relative;
+        top: -6px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: $primary_color;
+        color: $primary_color;
+        transform-origin: 4px 10px;
+        animation: loader 2s infinite linear;
+      
+    &::before, 
+    &::after {
+        content: "";
+        display: inline-block;
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: $primary_color;
+        color: $primary_color;
+
+    }
+
+    &::before {
+        left: -5px;
+        top: 9px;
+    }
+    
+    &::after {
+        left: 5px;
+        top: 9px;
+      }
+      
+      @keyframes loader {
+        0% {
+          transform: rotateZ(0deg) translate3d(0, 0, 0);
+        }
+        100% {
+          transform: rotateZ(720deg) translate3d(0, 0, 0);
+        }
+      }
 }

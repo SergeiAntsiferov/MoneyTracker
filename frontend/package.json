@@ -1,6 +1,6 @@
 {
-  "homepage": "https://money-tracker.vercel.app",
-  "name": "money_tracker",
+  "homepage": "https://transactions.vercel.app",
+  "name": "transactions",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

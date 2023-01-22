@@ -18,7 +18,7 @@ function Header() {
   return (
     <header className="header">
       <Navigation buttons={navButtons} />
-      <Link to="/" className="header__title">Money tracker</Link>
+      <Link to="/" className="header__title">Transactions</Link>
     </header>
   );
 }

@@ -21,9 +21,8 @@ function Categories(props) {
   async function getCategories() {
     try {
       const result = await sendData('GET', '/get_categories');
-      if (result) {
-        setCategories(result);
-      } else return;
+      if (result) setCategories(result);
+      else return;
     } catch (error) {
       catchHandler(error, 'getCategories');
     }
@@ -93,7 +92,7 @@ function Categories(props) {
 
           {categories.map((category) => {
             const { id, type, title } = category;
-            const isEditing = editingCategory?.id === id;
+            const isEditing = editingCategory?.id === category.id;
             return (
               <tr className="table__row" key={id}>
 

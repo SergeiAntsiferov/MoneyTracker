@@ -11,3 +11,4 @@ const mongo = new MongoClient(uri);
 
 export const ObjectID = ObjectId
 export const db = mongo.db('money_tracker');
+export const sample_supplies = mongo.db('sample_supplies');
