@@ -11,11 +11,11 @@ import { createAction } from '../../redux/store';
 //         title: "string"
 //     }
 // - onChoose - choose handler
-// - defaultValue - default displayed value
+// - value - default displayed value
 
 function Select(props) {
   const {
-    array, onChoose, defaultValue, id,
+    array, onChoose, value, id,
   } = props;
 
   const isActive = useSelector((state) => state.visibility.select[id]);
@@ -41,7 +41,7 @@ function Select(props) {
   return (
     <div id={id} className="custom-select">
       <div className="custom-select__header" onClick={toggleSelect}>
-        <span className="custom-select__title">{defaultValue || 'Choose'}</span>
+        <span className="custom-select__title">{value || 'Choose'}</span>
         <img
           className={isActive ? 'custom-select__chevron custom-select__chevron_active' : 'custom-select__chevron'}
           onClick={toggleSelect}

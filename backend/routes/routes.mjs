@@ -69,12 +69,15 @@ app.post("/get_transactions", jsonParser, async (request, response) => {
         let result;
 
         if (range) {
-            const prapareRange = range.map(id => ObjectID(id))
-            result = await sales.find({ 
-                _id : { 
-                    $in : prapareRange 
-                }
-            }).toArray(); // get data in range
+            if (range === "All") result = await sales.find().toArray(); 
+            else {
+                const prapareRange = range.map(id => ObjectID(id))
+                result = await sales.find({ 
+                    _id : { 
+                        $in : prapareRange 
+                    }
+                }).toArray(); // get data in range
+            }
         } else {
             result = await sales.distinct("_id", {}) // get only id
         }

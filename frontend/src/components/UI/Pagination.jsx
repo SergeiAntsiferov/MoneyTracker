@@ -1,42 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import Loader from './Loader';
+import Select from './Select';
 
 // Строка пагинации
-// array - массив id элементов
-// limit - лимит отображения на одной странице
-// handler - обработчик выбора страницы
+// array - array of element's id
+// limit - display limit per page
+// handler - page choose handler
 function Pagination(props) {
   const { array, limit, handler } = props;
 
-  const [isLoading, setIsLoading] = useState(false); // загружаемая страница
-  const [activePage, setActivePage] = useState(1); // активная страница
-  const [pages, setPages] = useState([]); // массив страниц
+  const [isLoading, setIsLoading] = useState(false); // loading state
+  const [activePage, setActivePage] = useState(1); // active page
+  const [pages, setPages] = useState([]); // array of pages
   const [page, setPage] = useState(activePage);
 
-  // Обработка выбора страницы
+  // Page choose handling
   async function chooseHandler(number) {
-    setActivePage(number); // Записать активную страницу в состояние
-    setIsLoading(true); // выбранная страница загружается
-    await handler(number); // ожидание выполнения функции обработчика
-    setIsLoading(false); // выбранная страница загружена
+    setActivePage(number); // Write active page to state
+    setIsLoading(true); // loading in process
+    await handler(number); // waiting for the handler function to execute
+    setIsLoading(false); // loading completed
   }
 
   useEffect(() => {
-    countPages(); // пересчёт страниц при изменении длины массива или лимита
-  }, [array]);
+    countPages(); // recount pages if an array was changed
+  }, [array, limit]);
 
-  // Создать массив из номеров страниц
+  // Create an array from pages
   function countPages() {
-    if (limit) { // если указан лимит
-      const ratio = array.length / limit; // отношение длины к лимиту
-      if (ratio > 1) { // если отношение больше 1
-        // записывается массив чисел длиной ratio округлённого в большую сторону
+    if (limit) { // if there is a limit
+      const ratio = array.length / limit; // length to limit ratio
+      if (ratio > 1) { // if ratio more than 1
+        // create an array of numbers where length is a ratio rounded up
         setPages([...Array(Math.ceil(ratio)).keys()]);
-      } else setPages([]); // иначе записывается пустой массив
-    } else setPages([]); // иначе записывается пустой массив
-    setActivePage(1); // Записать активную страницу в состояние
+      } else setPages([]); // else empty array
+    } else setPages([]); // else empty array
+    chooseHandler(1); // set active page = 1 after recount
   }
 
+  // go to the previous page
   function choosePrevious() {
     if (activePage > 1) {
       const previous = activePage - 1;
@@ -45,6 +47,7 @@ function Pagination(props) {
     } else chooseHandler(activePage);
   }
 
+  // go to the next page
   function chooseNext() {
     if (activePage < pages.length) {
       const next = activePage + 1;
@@ -53,56 +56,36 @@ function Pagination(props) {
     } else chooseHandler(activePage);
   }
 
+  // Handle input
   function inputPage(e) {
-    if (!e.target.value) {
-      setPage('');
-    }
-
-    const result = +e.target.value.replace(/[^0-9]/g, '');
-    if (result === 0) setPage(1);
-    else if (result > pages.length) setPage(pages.length);
+    const result = +e.target.value.replace(/[^0-9]/g, ''); // leave only integers
+    if (result === 0) setPage(''); // set empty if integer is 0
+    else if (result > pages.length) setPage(pages.length); // set last page if integer more than it
     else {
-      setPage(result);
-      if (e.key === 'Enter') chooseHandler(result);
+      setPage(result); // set page
+      if (e.key === 'Enter') chooseHandler(result); /// handle choosed page by pressing Enter
     }
   }
 
-  // Если страницы отсутствуют, компонент не покажется
+  // if there are no pages, component didn't displayed
   if (!pages || pages.length === 0) return null;
   return (
     <tr className="table__row" id="pagination">
       <td className="table__data pagination__pages">
-        {`Showing ${activePage * limit - limit + 1} to ${activePage * limit} of ${array.length} entries`}
+        {isLoading ? <Loader /> : `Showing ${activePage * limit - limit + 1} to ${activePage * limit} of ${array.length} entries`}
       </td>
       <td className="table__data pagination__pages">
-        <div onClick={choosePrevious} className="pagination__navigate">Previous</div>
-
-        {isLoading ? <Loader /> : (
-          <div className="pagination__page">
-            <input
-              className="pagination__input"
-              onChange={inputPage}
-              onKeyUp={inputPage}
-              value={page}
-            />
-            {`of ${pages.length}`}
-          </div>
-        )}
-        <div onClick={chooseNext} className="pagination__navigate">Next</div>
-        {/* {pages.map((index) => {
-          const pageNumber = index + 1; // номер страницы
-          return (
-            <div
-              key={index}
-              onClick={() => chooseHandler(pageNumber)}
-              className={activePage === pageNumber ?
-              'pagination__page pagination__page_active' :
-              'pagination__page'}
-            >
-              {isLoading ? <Loader /> : pageNumber}
-            </div>
-          );
-        })} */}
+        <div onClick={choosePrevious} className="pagination__navigate">{isLoading ? <Loader /> : 'Previous'}</div>
+        <div className="pagination__page">
+          <input
+            className="pagination__input"
+            onChange={inputPage}
+            onKeyUp={inputPage}
+            value={page}
+          />
+          {`of ${pages.length}`}
+        </div>
+        <div onClick={chooseNext} className="pagination__navigate">{isLoading ? <Loader /> : 'Next'}</div>
       </td>
     </tr>
   );
