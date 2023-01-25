@@ -1,5 +1,121 @@
 @import '../App.scss';
 
+.table {
+    border: 1px solid $secondary_color_2;
+    border-radius: $radius;
+    display: grid;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    box-shadow: $default-shadow_active;
+
+    &__head {
+        text-transform: uppercase;
+        
+        & .table__row {
+            height: 48px;
+
+            &:first-child {
+                background: $secondary_color_2;
+                color: $font_color
+            }
+        }
+
+    }
+
+
+    &__body {
+        display: flex;
+        flex-flow: column nowrap;
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        transition: .3s;
+
+        & .table__data {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            overflow: inherit;
+        }
+        & .table__row:nth-child(2n-1) {
+            background: $secondary_color_2;
+            color: $font_color
+        }
+    }
+    
+    &__row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    }
+
+
+    &__data {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 8px;
+        border: 1px solid $secondary_color_2;
+    }
+
+    &__data-button {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 8px;
+        border: 1px solid $secondary_color_2;
+        text-align: center;
+        user-select: none;
+        transition: .3s;
+
+        &:hover {
+            cursor: pointer;
+            box-shadow: $default-shadow-inset;
+            color: $font_color;
+            background-color: $primary_color;
+            transition: .3s;
+        }
+
+        &:active {
+            background-color: $secondary_color_2;
+            color: $font_color;
+            box-shadow: $default-shadow-inset_active;
+        }
+    }
+
+    &__data-button_active {
+        color: $font_color;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 1px;
+        padding: 8px;
+        transition: .3s;
+        text-align: center;
+        box-shadow: $default-shadow-inset_active;
+        user-select: none;
+
+
+        &:hover {
+            cursor: pointer;
+            background-color: $primary_color;
+            color: $font_color;
+            box-shadow: $default-shadow-inset_active;
+            transition: .3s;
+        }
+
+        &:active {
+            background-color: $secondary_color_2;
+            color: $font_color;
+            box-shadow: $default-shadow-inset_active;
+        }
+    }
+}
+
 .header {
 
     display: flex;
@@ -81,6 +197,72 @@
                 bottom: 0;
                 background-color: $primary_color;
                 transition: .3s;
+            }
+        }
+    }
+}
+
+#pagination {
+    height: 60px;
+    overflow: hidden;
+
+    & .pagination {
+
+        border: 1px solid red;
+        height: 60px;
+        overflow: hidden;
+
+        &__page {
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            margin: 0 8px;
+        }
+        &__pages {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        &__input {
+            padding: 0;
+            text-align: center;
+            height: 32px;
+            width: 32px;
+            font-size: 1rem;
+            outline: none;
+            border: none;
+            background-color: transparent;
+            border-bottom: 1px solid $secondary_color_2;
+            
+        }
+
+        &__navigate {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: $radius;
+            width: 100px;
+            height: 32px;
+            background-color: $secondary_color_2;
+            color: $font_color;
+            transition: $transition;
+            box-shadow: $default-shadow;
+        
+
+            &:hover {
+                cursor: pointer;
+                background-color: $secondary_color_2;
+                color: $font_color;
+                transition: $transition;
+                box-shadow: $default-shadow_active;
+            }
+
+            &:active {
+                box-shadow: $default-shadow_inset_active;
+                transition: $transition;
             }
         }
     }

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Loader from './Loader';
-import Select from './Select';
 
 // Строка пагинации
 // array - array of element's id

@@ -30,7 +30,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" onClick={() => createAction('TOGGLE_SELECT', false)}>
       <Header />
       <AppRouter />
     </div>

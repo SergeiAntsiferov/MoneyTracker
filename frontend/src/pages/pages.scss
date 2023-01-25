@@ -16,6 +16,7 @@
 .main {
     padding: 20px;
 }
+
 .settings {
     justify-content: center;
 
@@ -139,68 +140,20 @@
     }
 }
 
-#pagination {
-    height: 60px;
-    overflow: hidden;
+#transactions {
 
-    & .pagination {
+    & .table__head {
+        position: relative;
+    }
 
-        border: 1px solid red;
-        height: 60px;
-        overflow: hidden;
-
-        &__page {
-            display: flex;
-            align-items: center;
-            font-size: 1.1rem;
-            margin: 0 8px;
-        }
-        &__pages {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        &__input {
-            padding: 0;
-            text-align: center;
-            height: 32px;
-            width: 32px;
-            font-size: 1rem;
-            outline: none;
-            border: none;
-            background-color: transparent;
-            border-bottom: 1px solid $secondary_color_2;
-            
-        }
-
-        &__navigate {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: $radius;
-            width: 100px;
-            height: 32px;
-            background-color: $secondary_color_2;
-            color: $font_color;
-            transition: $transition;
-            box-shadow: $default-shadow;
-        
-
-            &:hover {
-                cursor: pointer;
-                background-color: $secondary_color_2;
-                color: $font_color;
-                transition: $transition;
-                box-shadow: $default-shadow_active;
-            }
-
-            &:active {
-                box-shadow: $default-shadow_inset_active;
-                transition: $transition;
-            }
-        }
+    &__select {
+        position: absolute;
+        right: 4px;
+        top: 4px;
+        min-width: 80px;
+        width: 80px;
+        text-transform: none;
     }
 }
+
+

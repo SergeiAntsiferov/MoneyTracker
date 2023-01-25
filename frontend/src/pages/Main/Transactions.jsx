@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Loader from '../../components/UI/Loader';
 import Pagination from '../../components/UI/Pagination';
 import Select from '../../components/UI/Select';
+import Table from '../../components/UI/Table/Table';
+import TBody from '../../components/UI/Table/TBody';
+import TData from '../../components/UI/Table/TData';
+import TFoot from '../../components/UI/Table/TFoot';
+import THead from '../../components/UI/Table/THead';
+import TRow from '../../components/UI/Table/TRow';
 import { catchHandler } from '../../utils/error_handling/error_handling';
 import { sendData } from '../../utils/functions/basic';
 
@@ -9,12 +15,20 @@ function Transactions() {
   const [isLoading, setIsLoading] = useState(false); // loading state
   const [transactions, setTransactions] = useState([]); // displayed transactions
   const [transactionsId, setTransactionsId] = useState([]); // id's of displayed transactions
-  const limitOptions = [
+
+  const limitOptions = [ // display limit options
     { id: 1, title: 50, value: 50 },
     { id: 2, title: 100, value: 100 },
     { id: 3, title: 200, value: 200 },
     { id: 4, title: 'All', value: transactionsId.length },
   ];
+
+  const headers = [ // Table headers
+    { title: 'Email', field: 'email' },
+    { title: 'Location', field: 'storeLocation' },
+    { title: 'Date', field: 'saleDate' },
+  ];
+
   const [limit, setLimit] = useState(limitOptions[0]);
 
   useEffect(() => {
@@ -32,8 +46,10 @@ function Transactions() {
         if (result) setTransactions(result);
         else return;
       } else {
-        // setIsLoading(true);
+        setIsLoading(true);
         const result = await sendData('POST', '/get_transactions');
+        setIsLoading(false);
+
         if (result) {
           setTransactionsId(result); // write id's to state
           if (result.length > limit.value) { // if result more than limit
@@ -65,48 +81,37 @@ function Transactions() {
   }
 
   return (
-    <table className="table">
-      <thead className="table__head">
-        <tr className="table__row">
-          <td className="table__data">
-            <Select
-              id="transactions__select"
-              array={limitOptions}
-              value={limit.title}
-              onChoose={(choice) => setLimit(choice)}
-            />
-          </td>
-          <td className="table__data">Transactions</td>
-
-        </tr>
-        <tr className="table__row">
-          <td className="table__data">Email</td>
-          <td className="table__data">Location</td>
-          <td className="table__data">Date</td>
-        </tr>
-      </thead>
-      <tbody className="table__body">
+    <Table id="transactions">
+      <THead name="Transactions" headers={headers}>
+        <Select
+          id="transactions__select"
+          array={limitOptions}
+          value={limit.title}
+          onChoose={(choice) => setLimit(choice)}
+        />
+      </THead>
+      <TBody>
         {transactions.map((item) => {
           const {
             _id, customer, saleDate, storeLocation,
           } = item;
           return (
-            <tr className="table__row" key={_id}>
-              <td className="table__data">{customer?.email}</td>
-              <td className="table__data">{storeLocation}</td>
-              <td className="table__data">{saleDate}</td>
-            </tr>
+            <TRow key={_id}>
+              <TData>{customer?.email}</TData>
+              <TData>{storeLocation}</TData>
+              <TData>{saleDate}</TData>
+            </TRow>
           );
         })}
-      </tbody>
-      <tfoot className="table__foot">
+      </TBody>
+      <TFoot>
         <Pagination
           array={transactionsId}
           limit={limit.value}
           handler={choosePage}
         />
-      </tfoot>
-    </table>
+      </TFoot>
+    </Table>
   );
 }
 
