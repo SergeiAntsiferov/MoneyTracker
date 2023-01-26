@@ -1,17 +1,17 @@
 import React from 'react';
 
 function TData({ children, ...props }) {
-  const { button, handler } = props;
+  const { isButton, clickHandler } = props;
 
-  function clickHadler() {
-    if (handler) handler();
+  function onClick() {
+    if (clickHandler) clickHandler();
     else return false;
   }
 
   return (
     <td
-      className={button ? 'table__data-button' : 'table__data'}
-      onClick={clickHadler}
+      className={isButton ? 'table__data-button' : 'table__data'}
+      onClick={onClick}
     >
       {children}
     </td>

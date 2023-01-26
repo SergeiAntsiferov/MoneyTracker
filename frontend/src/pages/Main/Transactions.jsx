@@ -82,7 +82,11 @@ function Transactions() {
 
   return (
     <Table id="transactions">
-      <THead name="Transactions" headers={headers}>
+      <THead
+        name="Transactions"
+        headers={headers}
+        sortHandler={(field, sorting) => console.log(field, sorting)}
+      >
         <Select
           id="transactions__select"
           array={limitOptions}

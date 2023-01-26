@@ -13,7 +13,7 @@
         text-transform: uppercase;
         
         & .table__row {
-            height: 48px;
+            min-height: 48px;
 
             &:first-child {
                 background: $secondary_color_2;
@@ -62,10 +62,11 @@
 
     &__data-button {
         display: flex;
-        flex-direction: column;
+        flex-flow: row wrap;
         justify-content: center;
         align-items: center;
         padding: 8px;
+        height: 100%;
         border: 1px solid $secondary_color_2;
         text-align: center;
         user-select: none;
@@ -75,24 +76,23 @@
             cursor: pointer;
             box-shadow: $default-shadow-inset;
             color: $font_color;
-            background-color: $primary_color;
+            background-color: $secondary_color_2;
             transition: .3s;
         }
-
+        
         &:active {
-            background-color: $secondary_color_2;
+            background-color: $background_color;
             color: $font_color;
             box-shadow: $default-shadow-inset_active;
         }
     }
 
     &__data-button_active {
-        color: $font_color;
         display: flex;
         flex-flow: row wrap;
         justify-content: center;
         align-items: center;
-        margin: 1px;
+        border: 1px solid $secondary_color_2;
         padding: 8px;
         transition: .3s;
         text-align: center;
@@ -102,16 +102,35 @@
 
         &:hover {
             cursor: pointer;
-            background-color: $primary_color;
+            background-color: $secondary_color_2;
             color: $font_color;
             box-shadow: $default-shadow-inset_active;
             transition: .3s;
         }
-
+        
         &:active {
-            background-color: $secondary_color_2;
+            background-color: $background_color;
             color: $font_color;
             box-shadow: $default-shadow-inset_active;
+        }
+    }
+
+    &__sort-badge {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        width: 1rem;
+        margin: 0 4px;
+    }
+
+    &__sort-icon {
+        font-size: 0.8rem;
+        transition: $transition;
+        &_active {
+            transition: $transition;
+            font-size: 0.8rem;
+            color: $primary_color
         }
     }
 }
@@ -231,7 +250,8 @@
             text-align: center;
             height: 32px;
             width: 32px;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            font-family: 'Times New Roman', Times;
             outline: none;
             border: none;
             background-color: transparent;
