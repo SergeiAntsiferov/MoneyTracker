@@ -8,6 +8,7 @@ import TData from '../../components/UI/Table/TData';
 import TFoot from '../../components/UI/Table/TFoot';
 import THead from '../../components/UI/Table/THead';
 import TRow from '../../components/UI/Table/TRow';
+import TRowLoader from '../../components/UI/Table/TRowLoader';
 import { catchHandler } from '../../utils/error_handling/error_handling';
 import { sendData } from '../../utils/functions/basic';
 
@@ -46,9 +47,9 @@ function Transactions() {
         if (result) setTransactions(result);
         else return;
       } else {
-        setIsLoading(true);
+        // setIsLoading(true);
         const result = await sendData('POST', '/get_transactions');
-        setIsLoading(false);
+        // setIsLoading(false);
 
         if (result) {
           setTransactionsId(result); // write id's to state
@@ -99,6 +100,7 @@ function Transactions() {
           const {
             _id, customer, saleDate, storeLocation,
           } = item;
+          if (isLoading) return <TRowLoader key={_id} />;
           return (
             <TRow key={_id}>
               <TData>{customer?.email}</TData>

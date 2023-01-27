@@ -39,10 +39,29 @@
             text-align: center;
             overflow: inherit;
         }
-        & .table__row:nth-child(2n-1) {
-            background: $secondary_color_2;
-            color: $font_color
+        & .table__row {
+            &:nth-child(2n-1) {
+                background: $secondary_color_2;
+                color: $font_color
+            }
         }
+
+        & .table__row_loader {
+            &:nth-child(2n-1) {
+                position: relative;
+                background: $secondary_color_2;
+                background: linear-gradient(-45deg, $secondary_color_2, $background-color, $secondary_color_2);
+                background-size: 300% 300%;
+                animation: gradient 1.5s ease infinite;
+            }
+        }
+    
+        @keyframes gradient {
+            0% { background-position: 100% 50%; }
+            50% {  background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
     }
     
     &__row {
@@ -58,6 +77,10 @@
         align-items: center;
         padding: 8px;
         border: 1px solid $secondary_color_2;
+
+        &_loader {
+            height: 34px;
+        }
     }
 
     &__data-button {
