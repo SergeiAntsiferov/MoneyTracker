@@ -15,8 +15,9 @@ function Pagination(props) {
 
   // Page choose handling
   async function chooseHandler(number) {
-    setActivePage(number); // Write active page to state
     setIsLoading(true); // loading in process
+    setActivePage(number); // Write active page to state
+    setPage(number); // Write page to state
     await handler(number); // waiting for the handler function to execute
     setIsLoading(false); // loading completed
   }
@@ -34,25 +35,27 @@ function Pagination(props) {
         setPages([...Array(Math.ceil(ratio)).keys()]);
       } else setPages([]); // else empty array
     } else setPages([]); // else empty array
-    chooseHandler(1); // set active page = 1 after recount
+    if (array.length > 0) chooseHandler(1); // set active page = 1 after recount
   }
 
   // go to the previous page
   function choosePrevious() {
+    if (isLoading) return false;
     if (activePage > 1) {
       const previous = activePage - 1;
       chooseHandler(previous);
       setPage(previous);
-    } else chooseHandler(activePage);
+    } else chooseHandler(pages.length);
   }
 
   // go to the next page
-  function chooseNext() {
+  async function chooseNext() {
+    if (isLoading) return false;
     if (activePage < pages.length) {
       const next = activePage + 1;
-      chooseHandler(next);
+      await chooseHandler(next);
       setPage(next);
-    } else chooseHandler(activePage);
+    } else chooseHandler(1);
   }
 
   // Handle input

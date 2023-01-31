@@ -3,6 +3,7 @@ import { catchHandler } from '../utils/error_handling/error_handling';
 
 const generalReducerDefault = {
   current_theme: {},
+  abort_controllers: [],
 };
 
 function generalReducer(state = generalReducerDefault, action) {
@@ -10,6 +11,8 @@ function generalReducer(state = generalReducerDefault, action) {
     switch (action.type) {
       case 'SET_CURRENT_THEME':
         return { ...state, current_theme: action.payload };
+      case 'SET_ABORT_CONTROLLERS':
+        return { ...state, abort_controllers: action.payload };
       default:
         return state;
     }

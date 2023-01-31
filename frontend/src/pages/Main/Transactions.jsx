@@ -40,28 +40,15 @@ function Transactions() {
   async function getTransactions(range) {
     try {
       setIsLoading(true);
-
       if (range) {
-        // setIsLoading(true);
         const result = await sendData('POST', '/get_transactions', { range });
         if (result) setTransactions(result);
-        else return;
+        setIsLoading(false);
       } else {
-        // setIsLoading(true);
         const result = await sendData('POST', '/get_transactions');
-        // setIsLoading(false);
-
-        if (result) {
-          setTransactionsId(result); // write id's to state
-          if (result.length > limit.value) { // if result more than limit
-            const firstRange = result.slice(0, limit.value); // range of id for 1 page
-            await getTransactions(firstRange); // get elements for 1 page
-          } else {
-            await getTransactions(result);// get all elements
-          }
-        } else return;
+        if (result) setTransactionsId(result); // write id's to state
+        setIsLoading(false);
       }
-      setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       catchHandler(error, 'getTransactions');
