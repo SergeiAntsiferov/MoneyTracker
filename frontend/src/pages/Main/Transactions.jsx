@@ -25,7 +25,7 @@ function Transactions() {
   ];
 
   const headers = [ // Table headers
-    { title: 'Email', field: 'email' },
+    { title: 'Email', field: 'customer.email' },
     { title: 'Location', field: 'storeLocation' },
     { title: 'Date', field: 'saleDate' },
   ];
@@ -37,15 +37,17 @@ function Transactions() {
   }, []);
 
   // get transactions
-  async function getTransactions(range) {
+  async function getTransactions(parametres) {
     try {
       setIsLoading(true);
-      if (range) {
-        const result = await sendData('POST', '/get_transactions', { range });
+      if (parametres?.range) {
+        const result = await sendData('POST', '/get_transactions', parametres);
         if (result) setTransactions(result);
         setIsLoading(false);
       } else {
-        const result = await sendData('POST', '/get_transactions');
+        let requestData = {}; // request's data
+        if (parametres?.sort) requestData = parametres; // if there is sort parametres, add it
+        const result = await sendData('POST', '/get_transactions', requestData);
         if (result) setTransactionsId(result); // write id's to state
         setIsLoading(false);
       }
@@ -65,7 +67,16 @@ function Transactions() {
       const toIndex = number * value; // count end index
       range = transactionsId.slice(fromIndex, toIndex); // cut out range from initial array
     }
-    await getTransactions(range);
+    await getTransactions({ range });
+  }
+
+  function sortTransactions(field, sorting) {
+    getTransactions({
+      sort: {
+        field,
+        sorting,
+      },
+    });
   }
 
   return (
@@ -73,7 +84,7 @@ function Transactions() {
       <THead
         name="Transactions"
         headers={headers}
-        sortHandler={(field, sorting) => console.log(field, sorting)}
+        sortHandler={sortTransactions}
       >
         <Select
           id="transactions__select"

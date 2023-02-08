@@ -1,4 +1,3 @@
-import { createAction, store } from '../../redux/store';
 import { catchHandler } from '../error_handling/error_handling';
 
 export const domen = 'http://localhost:4001';

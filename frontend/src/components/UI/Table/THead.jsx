@@ -14,14 +14,14 @@ function THead({ children, ...props }) {
     if (sortField === field) {
       switch (sortState) {
         case null: {
-          setSortState('asc');
-          return sortHandler(field, 'asc');
+          setSortState(1);
+          return sortHandler(field, 1);
         }
-        case 'asc': {
-          setSortState('desc');
-          return sortHandler(field, 'desc');
+        case 1: {
+          setSortState(-1);
+          return sortHandler(field, -1);
         }
-        case 'desc': {
+        case -1: {
           setSortState(null);
           setSortField(null);
           return sortHandler(field, null);
@@ -29,8 +29,8 @@ function THead({ children, ...props }) {
         default:
       }
     } else {
-      setSortState('asc');
-      return sortHandler(field, 'asc');
+      setSortState(1);
+      return sortHandler(field, 1);
     }
   }
 
@@ -63,8 +63,8 @@ function THead({ children, ...props }) {
             <td key={field} className={defineTdClass(field)} onClick={() => sortByField(field)}>
               {title}
               <div className="table__sort-badge">
-                <span className={defineBadgeClass(field, 'desc')}>▲</span>
-                <span className={defineBadgeClass(field, 'asc')}>▼</span>
+                <span className={defineBadgeClass(field, -1)}>▲</span>
+                <span className={defineBadgeClass(field, 1)}>▼</span>
               </div>
             </td>
           );

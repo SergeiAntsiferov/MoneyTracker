@@ -3,15 +3,6 @@ import catch_handler from '../functions/catch_handler.mjs'
 import { db, sample_supplies } from '../connections/mongo_connect.mjs'
 import { ObjectID } from '../connections/mongo_connect.mjs';
 
-
-function modifiyIdKeys(array) {
-    return array.map((item) => {
-        const id = item["_id"]
-        delete item["_id"]
-        return { id: id, ...item }
-    })
-}
-
 // Get current color theme
 app.get("/get_theme", jsonParser, async (request, response) => {
     try {
@@ -46,25 +37,10 @@ app.post ("/change_theme", jsonParser, async (request, response) => {
     }
 });
 
-// Get categories
-app.get("/get_categories", jsonParser, async (request, response) => {
-    try {
-        const categories = db.collection('categories');
-        
-        const result = await categories.find().toArray();
-        const prepareResult = modifiyIdKeys(result)
-
-        response.json(prepareResult) // send response to frontend
-    } catch(error) { 
-        catch_handler(error, "/get_categories") 
-    }
-});
-
 // Get transactions
 app.post("/get_transactions", jsonParser, async (request, response) => {
     try {
-        const { range } = request.body
-        
+        const { range, sort } = request.body
         const sales = sample_supplies.collection('sales');
         let result;
 
@@ -78,6 +54,17 @@ app.post("/get_transactions", jsonParser, async (request, response) => {
                     }
                 }).toArray(); // get data in range
             }
+        } else if (sort) {
+            const { field, sorting } = sort
+            if (!sorting) result = await sales.distinct("_id", {}) // get only id
+            else {
+                let array = [] // array for results
+                await sales.find({}, {
+                    sort: { [field]: sorting }, // sorting parameter
+                    projection: { "_id": 1 } // necessary fields
+                }).forEach(item => array.push(item["_id"])) // write results to array
+                result = array
+            }
         } else {
             result = await sales.distinct("_id", {}) // get only id
         }
@@ -88,36 +75,58 @@ app.post("/get_transactions", jsonParser, async (request, response) => {
     }
 });
 
+// function modifiyIdKeys(array) {
+//     return array.map((item) => {
+//         const id = item["_id"]
+//         delete item["_id"]
+//         return { id: id, ...item }
+//     })
+// }
+
+// Get categories
+// app.get("/get_categories", jsonParser, async (request, response) => {
+//     try {
+//         const categories = db.collection('categories');
+        
+//         const result = await categories.find().toArray();
+//         const prepareResult = modifiyIdKeys(result)
+
+//         response.json(prepareResult) // send response to frontend
+//     } catch(error) { 
+//         catch_handler(error, "/get_categories") 
+//     }
+// });
+
 // categories handling
-app.post("/handle_categories", jsonParser, async (request, response) => {
-    try {
+// app.post("/handle_categories", jsonParser, async (request, response) => {
+//     try {
 
-        const { action, category, id } = request.body
-        const categories = db.collection('categories');
+//         const { action, category, id } = request.body
+//         const categories = db.collection('categories');
 
-        switch(action) {
+//         switch(action) {
 
-            case "create": {
+//             case "create": {
 
-            }
-            break;
+//             }
+//             break;
 
-            case "edit": {
-                const { id, title, type } = category
-                await categories.updateOne({_id: ObjectID(id)}, {$set: {title: title, type: type}})
-                response.json("success") // send response to frontend
-            }
-            break;
+//             case "edit": {
+//                 const { id, title, type } = category
+//                 await categories.updateOne({_id: ObjectID(id)}, {$set: {title: title, type: type}})
+//                 response.json("success") // send response to frontend
+//             }
+//             break;
 
-            case "delete": {
-                await categories.deleteOne({_id: ObjectID(id)})
-                response.json("success") // send response to frontend
-            }
-            break;
+//             case "delete": {
+//                 await categories.deleteOne({_id: ObjectID(id)})
+//                 response.json("success") // send response to frontend
+//             }
+//             break;
 
-            default: response.json("default")
-        }
-    } catch(error) { 
-        catch_handler(error, "/handle_categories") 
-    }
-});
+//             default: response.json("default")
+//         }
+//     } catch(error) { 
+//         catch_handler(error, "/handle_categories") 
+//     }
+// });
