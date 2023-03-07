@@ -45,15 +45,9 @@ app.post("/get_transactions", jsonParser, async (request, response) => {
         let result;
 
         if (range) {
-            if (range === "All") result = await sales.find().toArray(); 
-            else {
-                const prapareRange = range.map(id => ObjectID(id))
-                result = await sales.find({ 
-                    _id : { 
-                        $in : prapareRange 
-                    }
-                }).toArray(); // get data in range
-            }
+            const prapareRange = range.map(id => ObjectID(id))
+            result = await sales.find({ _id : { $in : prapareRange } }).toArray() // get data in range
+                        
         } else if (sort) {
             const { field, sorting } = sort
             if (!sorting) result = await sales.distinct("_id", {}) // get only id
@@ -65,10 +59,8 @@ app.post("/get_transactions", jsonParser, async (request, response) => {
                 }).forEach(item => array.push(item["_id"])) // write results to array
                 result = array
             }
-        } else {
-            result = await sales.distinct("_id", {}) // get only id
-        }
-        
+        } else result = await sales.distinct("_id", {}) // get only id
+
         response.json(result) // send response to frontend
     } catch(error) { 
         catch_handler(error, "/get_transactions") 

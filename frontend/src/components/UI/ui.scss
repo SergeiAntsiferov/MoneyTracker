@@ -48,7 +48,6 @@
     }
 }
 
-
 .toggle {
     border: 1px solid $secondary_color_2;
     position: relative;
@@ -127,6 +126,7 @@
     &__title {
         max-width: calc(100% - 24px);
         overflow: hidden;
+        color: $font_color
     }
 
     &__chevron {

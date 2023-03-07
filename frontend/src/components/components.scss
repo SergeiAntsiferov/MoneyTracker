@@ -45,23 +45,6 @@
                 color: $font_color
             }
         }
-
-        & .table__row_loader {
-            &:nth-child(2n-1) {
-                position: relative;
-                background: $secondary_color_2;
-                background: linear-gradient(-45deg, $secondary_color_2, $background-color, $secondary_color_2);
-                background-size: 300% 300%;
-                animation: gradient 1.5s ease infinite;
-            }
-        }
-    
-        @keyframes gradient {
-            0% { background-position: 100% 50%; }
-            50% {  background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
     }
     
     &__row {
@@ -78,9 +61,6 @@
         padding: 8px;
         border: 1px solid $secondary_color_2;
 
-        &_loader {
-            height: 34px;
-        }
     }
 
     &__data-button {
@@ -154,6 +134,23 @@
             transition: $transition;
             font-size: 0.8rem;
             color: $primary_color
+        }
+    }
+
+    &__pagination {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        margin: 1px;
+        padding: 8px 0;
+        background-color: $background_color;
+        & td {
+            border: 1px solid black;
+            border-radius: 4px;
+            margin: 2px;
+            padding: 2px;
+            min-width: 30px;
+            height: 30px;
         }
     }
 }
@@ -244,69 +241,77 @@
     }
 }
 
-#pagination {
-    height: 60px;
-    overflow: hidden;
+.loading {
+    position: relative;
+    background: $secondary_color_2;
+    background: linear-gradient(-60deg, transparent 40%, rgba(255, 255, 255, 0.7) 50%, transparent 60%);
+    background-size: 300% 300%;
+    animation: gradient 1.5s ease infinite;
+    color: transparent;
+    transition: .3s;
+}
 
-    & .pagination {
+// .pagination {
+//     height: 60px;
+//     overflow: hidden;
 
-        border: 1px solid red;
-        height: 60px;
-        overflow: hidden;
+//     &__page {
+//         display: flex;
+//         align-items: center;
+//         font-size: 1.1rem;
+//         margin: 0 8px;
+//     }
+//     &__pages {
+//         display: flex;
+//         flex-direction: row;
+//         justify-content: center;
+//         align-items: center;
+//         overflow: hidden;
+//     }
 
-        &__page {
-            display: flex;
-            align-items: center;
-            font-size: 1.1rem;
-            margin: 0 8px;
-        }
-        &__pages {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        &__input {
-            padding: 0;
-            text-align: center;
-            height: 32px;
-            width: 32px;
-            font-size: 1.1rem;
-            font-family: 'Times New Roman', Times;
-            outline: none;
-            border: none;
-            background-color: transparent;
-            border-bottom: 1px solid $secondary_color_2;
-            
-        }
-
-        &__navigate {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: $radius;
-            width: 100px;
-            height: 32px;
-            background-color: $secondary_color_2;
-            color: $font_color;
-            transition: $transition;
-            box-shadow: $default-shadow;
+//     &__input {
+//         padding: 0;
+//         text-align: center;
+//         height: 32px;
+//         width: 32px;
+//         font-size: 1.1rem;
+//         font-family: 'Times New Roman', Times;
+//         outline: none;
+//         border: none;
+//         background-color: transparent;
+//         border-bottom: 1px solid $secondary_color_2;
         
+//     }
 
-            &:hover {
-                cursor: pointer;
-                background-color: $secondary_color_2;
-                color: $font_color;
-                transition: $transition;
-                box-shadow: $default-shadow_active;
-            }
+//     &__navigate {
+        
+//         width: 100px;
+//         height: 32px;
+//         border: none;
+//         border-radius: $radius;
+//         background-color: $secondary_color_2;
+//         color: $font_color;
+//         transition: $transition;
+//         box-shadow: $default-shadow;
+    
 
-            &:active {
-                box-shadow: $default-shadow_inset_active;
-                transition: $transition;
-            }
-        }
-    }
+//         &:hover {
+//             cursor: pointer;
+//             background-color: $secondary_color_2;
+//             color: $font_color;
+//             transition: $transition;
+//             box-shadow: $default-shadow_active;
+//         }
+
+//         &:active {
+//             box-shadow: $default-shadow_inset_active;
+//             transition: $transition;
+//         }
+//     }
+// }
+
+@keyframes gradient {
+    0% { background-position: 100% 50%; }
+    50% {  background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
 }
