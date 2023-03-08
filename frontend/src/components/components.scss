@@ -60,12 +60,12 @@
         align-items: center;
         padding: 8px;
         border: 1px solid $secondary_color_2;
-
+        transition: $transition;
     }
 
     &__data-button {
         display: flex;
-        flex-flow: row wrap;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         padding: 8px;
@@ -73,14 +73,14 @@
         border: 1px solid $secondary_color_2;
         text-align: center;
         user-select: none;
-        transition: .3s;
+        transition: $transition;
 
         &:hover {
             cursor: pointer;
             box-shadow: $default-shadow-inset;
             color: $font_color;
             background-color: $secondary_color_2;
-            transition: .3s;
+            transition: $transition;
         }
         
         &:active {
@@ -92,12 +92,12 @@
 
     &__data-button_active {
         display: flex;
-        flex-flow: row wrap;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         border: 1px solid $secondary_color_2;
         padding: 8px;
-        transition: .3s;
+        transition: $transition;
         text-align: center;
         box-shadow: $default-shadow-inset_active;
         user-select: none;
@@ -108,7 +108,7 @@
             background-color: $secondary_color_2;
             color: $font_color;
             box-shadow: $default-shadow-inset_active;
-            transition: .3s;
+            transition: $transition;
         }
         
         &:active {
@@ -120,7 +120,7 @@
 
     &__sort-badge {
         display: flex;
-        flex-direction: column;
+        flex-direction: row nowrap;
         justify-content: center;
         height: 100%;
         width: 1rem;
@@ -248,70 +248,31 @@
     background-size: 300% 300%;
     animation: gradient 1.5s ease infinite;
     color: transparent;
-    transition: .3s;
+    transition: $transition;
+    & > * {
+        color: transparent;
+        transition: $transition;
+    }
 }
-
-// .pagination {
-//     height: 60px;
-//     overflow: hidden;
-
-//     &__page {
-//         display: flex;
-//         align-items: center;
-//         font-size: 1.1rem;
-//         margin: 0 8px;
-//     }
-//     &__pages {
-//         display: flex;
-//         flex-direction: row;
-//         justify-content: center;
-//         align-items: center;
-//         overflow: hidden;
-//     }
-
-//     &__input {
-//         padding: 0;
-//         text-align: center;
-//         height: 32px;
-//         width: 32px;
-//         font-size: 1.1rem;
-//         font-family: 'Times New Roman', Times;
-//         outline: none;
-//         border: none;
-//         background-color: transparent;
-//         border-bottom: 1px solid $secondary_color_2;
-        
-//     }
-
-//     &__navigate {
-        
-//         width: 100px;
-//         height: 32px;
-//         border: none;
-//         border-radius: $radius;
-//         background-color: $secondary_color_2;
-//         color: $font_color;
-//         transition: $transition;
-//         box-shadow: $default-shadow;
-    
-
-//         &:hover {
-//             cursor: pointer;
-//             background-color: $secondary_color_2;
-//             color: $font_color;
-//             transition: $transition;
-//             box-shadow: $default-shadow_active;
-//         }
-
-//         &:active {
-//             box-shadow: $default-shadow_inset_active;
-//             transition: $transition;
-//         }
-//     }
-// }
 
 @keyframes gradient {
     0% { background-position: 100% 50%; }
     50% {  background-position: 0% 50%; }
     100% { background-position: 100% 50%; }
+}
+
+@media screen and (max-width: 780px) {
+    .table {
+        &__data {
+            padding: 4px;
+        }
+    
+        &__data-button {
+            padding: 4px;
+            &_active {
+                padding: 4px;
+            }
+        }
+    }
+    
 }

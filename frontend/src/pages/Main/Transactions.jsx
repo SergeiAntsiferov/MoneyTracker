@@ -26,6 +26,7 @@ function Transactions() {
     { title: 'Email', field: 'customer.email' },
     { title: 'Location', field: 'storeLocation' },
     { title: 'Date', field: 'saleDate' },
+    { title: 'Method', field: 'purchaseMethod' },
   ];
 
   useEffect(() => {
@@ -83,12 +84,31 @@ function Transactions() {
     });
   }
 
+  // Определить данные объекта
+  function defineData(object, field) {
+    const keys = field.split('.'); // разделить ключ схемы через точку
+
+    // Углубиться в объект и получить данные
+    function deepIntoTheObject(data, deep) {
+      // если нет данных - возвращаем null
+      if (!data) return null;
+      // Если глубина равна длине массива вложенности ключей
+      if (deep === (keys.length)) return data;
+      // Иначе берем зачение текущей глубины и идем дальше
+      return deepIntoTheObject(data?.[keys?.[deep]], deep + 1);
+    }
+
+    // Вернуть значение
+    return deepIntoTheObject(object, 0);
+  }
+
   return (
     <Table id="transactions">
       <THead
         name="Transactions"
         headers={headers}
         sortHandler={sortTransactions}
+        loading={isLoading}
       >
         <Select
           id="transactions__select"
@@ -98,15 +118,18 @@ function Transactions() {
         />
       </THead>
       <TBody>
-        {transactions.map((item) => {
-          const {
-            _id, customer, saleDate, storeLocation,
-          } = item;
+        {transactions.map((row) => {
+          const { _id } = row;
           return (
             <TRow key={_id}>
-              <TData loading={isLoading}>{customer?.email}</TData>
-              <TData loading={isLoading}>{storeLocation}</TData>
-              <TData loading={isLoading}>{saleDate}</TData>
+              {headers.map((item) => {
+                const { field } = item;
+                return (
+                  <TData key={field} loading={isLoading}>
+                    {defineData(row, field)}
+                  </TData>
+                );
+              })}
             </TRow>
           );
         })}

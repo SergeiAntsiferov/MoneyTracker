@@ -20,9 +20,26 @@
     $radius: 4px;
 
 
+html {
+    font-size: 16px;
+}
+
 .App {
     position: relative;
     height: 100vh;
-    font-size: 16px;
     white-space: pre-line; 
+}
+
+@media screen and (max-width: 780px) {
+    html {
+        font-size: 14px;
+    }
+    
+}
+
+@media screen and (max-width: 440px) {
+    html {
+        font-size: 12px;
+    }
+    
 }

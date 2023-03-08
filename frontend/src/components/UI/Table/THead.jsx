@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import TData from './TData';
 import TRow from './TRow';
 
-function THead({ children, ...props }) {
-  const { name, headers, sortHandler } = props;
+function THead(props) {
+  const {
+    name, headers, sortHandler, loading, children,
+  } = props;
 
   const [sortState, setSortState] = useState(null);
   const [sortField, setSortField] = useState(null);
@@ -34,14 +36,6 @@ function THead({ children, ...props }) {
     }
   }
 
-  // define table data classname
-  function defineTdClass(field) {
-    if (sortHandler) {
-      if (sortField === field) return 'table__data-button_active';
-      return 'table__data-button';
-    } return 'table__data';
-  }
-
   // define sorting badge class
   function defineBadgeClass(field, sorting) {
     if (sortField === field && sortState === sorting) return 'table__sort-icon_active';
@@ -51,7 +45,7 @@ function THead({ children, ...props }) {
   return (
     <thead className="table__head">
       <TRow>
-        <TData>
+        <TData loading={loading}>
           {children}
           {name}
         </TData>
@@ -60,13 +54,18 @@ function THead({ children, ...props }) {
         {headers.map((item) => {
           const { field, title } = item;
           return (
-            <td key={field} className={defineTdClass(field)} onClick={() => sortByField(field)}>
+            <TData
+              key={field}
+              active={sortField === field}
+              onClick={() => sortByField(field)}
+              loading={loading}
+            >
               {title}
               <div className="table__sort-badge">
                 <span className={defineBadgeClass(field, -1)}>▲</span>
                 <span className={defineBadgeClass(field, 1)}>▼</span>
               </div>
-            </td>
+            </TData>
           );
         })}
       </TRow>

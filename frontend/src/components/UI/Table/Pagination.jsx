@@ -58,28 +58,27 @@ function Pagination(props) {
         if (step * numberOfpages - numberOfpages < 0) return setStep(0);
         return setStep(step - 1);
       }
-      case '<<': {
-        if (step * numberOfpages - numberOfpages * 10 < 0) return setStep(0);
-        return setStep(step - 10);
-      }
+      // case '<<': {
+      //   if (step * numberOfpages - numberOfpages * 10 < 0) return setStep(0);
+      //   return setStep(step - 10);
+      // }
       case '>': {
         if (step * numberOfpages + numberOfpages > pages.length) return setStep(step);
         return setStep(step + 1);
       }
-      case '>>': {
-        if (step * numberOfpages + numberOfpages * 10 > pages.length) return setStep(step);
-        return setStep(step + 10);
-      }
+      // case '>>': {
+      //   if (step * numberOfpages + numberOfpages * 10 > pages.length) return setStep(step);
+      //   return setStep(step + 10);
+      // }
       default:
     }
   }
 
   // Если страницы отсутствуют, компонент не покажется
   if (!pages || pages.length === 0) return null;
-
   return (
     <tr className="table__pagination">
-      {showFirst && <TData onClick={() => stepHandler('<<')}>{'<<'}</TData>}
+      {/* {showFirst && <TData onClick={() => stepHandler('<<')}>{'<<'}</TData>} */}
       {showFirst && <TData onClick={() => stepHandler('<')}>{'<'}</TData>}
       {showFirst && <TData onClick={() => chooseHandler(1)} active={activePage === 1}>1</TData>}
       {showFirst && <TData>...</TData>}
@@ -105,7 +104,7 @@ function Pagination(props) {
       </TData>
       )}
       {showLast && <TData onClick={() => stepHandler('>')}>{'>'}</TData>}
-      {showLast && <TData onClick={() => stepHandler('>>')}>{'>>'}</TData>}
+      {/* {showLast && <TData onClick={() => stepHandler('>>')}>{'>>'}</TData>} */}
     </tr>
   );
 }

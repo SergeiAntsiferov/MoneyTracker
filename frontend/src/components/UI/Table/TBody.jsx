@@ -1,6 +1,7 @@
 import React from 'react';
 
-function TBody({ children }) {
+function TBody(props) {
+  const { children } = props;
   return (
     <tbody className="table__body">{children}</tbody>
   );

@@ -15,9 +15,7 @@ function TData(props) {
       </td>
     );
   } return (
-    <td
-      className={`table__data ${loading ? 'loading' : ''}`}
-    >
+    <td className={`table__data ${loading ? 'loading' : ''}`}>
       {children}
     </td>
   );
