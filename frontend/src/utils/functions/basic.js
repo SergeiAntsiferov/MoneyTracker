@@ -1,6 +1,6 @@
 import { catchHandler } from '../error_handling/error_handling';
 
-export const domen = 'http://localhost:4001';
+export const domen = process.env.REACT_APP_DOMEN;
 // Fetch request functoin
 // method - (string)
 // url - (string)

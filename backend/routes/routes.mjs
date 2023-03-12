@@ -4,7 +4,7 @@ import { db, sample_supplies } from '../connections/mongo_connect.mjs'
 import { ObjectID } from '../connections/mongo_connect.mjs';
 
 // Get current color theme
-app.get("/get_theme", jsonParser, async (request, response) => {
+app.get("/api/get_theme", jsonParser, async (request, response) => {
     try {
         const styles = db.collection('styles');
         const query = { active: true };
@@ -38,7 +38,7 @@ app.post ("/change_theme", jsonParser, async (request, response) => {
 });
 
 // Get transactions
-app.post("/get_transactions", jsonParser, async (request, response) => {
+app.post("/api/get_transactions", jsonParser, async (request, response) => {
     try {
         const { range, sort } = request.body
         const sales = sample_supplies.collection('sales');

@@ -1,14 +1,13 @@
 import express, { json } from "express"; // express library
 import cors from "cors"; // CORS module to prevent CORS errors 
-import ('./routes/routes.mjs') // routes handling
+import ('./routes/routes.mjs')
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 export const app = express(); // use express library
 export const jsonParser = json() // JSON parsing
 
-// Requests from origin will not blocks by CORS policy
-const corsProps = cors({
-    origin: ["http://localhost:3001"]
-}) 
+app.use(cors()) // use CORS 
 
-app.use(corsProps) // use CORS 
-app.listen(4001) // port listening
+const port = process.env.API_PORT
+if (port) app.listen(port) // port listening
