@@ -10,7 +10,6 @@ const controllers = {}; // controllers
 
 // sending/requesting function
 export async function sendData(method, url, data) {
-  console.log(method, url, data);
   try {
     // check existing controller for current url
     if (controllers[url]) { // if controller exist
@@ -31,7 +30,6 @@ export async function sendData(method, url, data) {
       });
       const result = await response.json();
       delete controllers[url]; // delete controller after request is done
-      console.log(result);
       return result;
     }
   } catch (error) {
