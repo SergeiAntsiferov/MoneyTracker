@@ -1,11 +1,11 @@
 import { catchHandler } from '../error_handling/error_handling';
 
-export const domen = 'http://transactions-backend.vercel.app';
-// process.env.REACT_APP_DOMEN;
+export const domen = process.env.REACT_APP_DOMEN;
 // Fetch request functoin
 // method - (string)
 // url - (string)
 // data - (object)
+
 console.log(domen);
 const controllers = {}; // controllers
 
