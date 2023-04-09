@@ -1,16 +1,19 @@
 import { catchHandler } from '../error_handling/error_handling';
 
-export const domen = process.env.REACT_APP_DOMEN;
+export const domen = 'http://transactions-backend.vercel.app';
+// process.env.REACT_APP_DOMEN;
 // Fetch request functoin
 // method - (string)
 // url - (string)
 // data - (object)
-
+console.log(domen);
 const controllers = {}; // controllers
 
 // sending/requesting function
 export async function sendData(method, url, data) {
   try {
+    console.log(domen + url);
+
     // check existing controller for current url
     if (controllers[url]) { // if controller exist
       controllers[url]?.abort(); // stop it
