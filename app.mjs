@@ -14,7 +14,7 @@ app.use(cors()) // use CORS
 let port = process.env.API_PORT
 if (port) app.listen(port) // port listening
 
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.resolve(__dirname, 'frontend', 'build')));
     app.get("*", (req, res) => {
         res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'),(err) => {
