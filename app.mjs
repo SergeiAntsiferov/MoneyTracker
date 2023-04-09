@@ -6,10 +6,15 @@ import { ObjectID } from './connections/mongo_connect.mjs';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-export const app = express(); // use express library
-export const jsonParser = json() // JSON parsing
+const app = express(); // use express library
+const jsonParser = json() // JSON parsing
 
-app.use(cors()) // use CORS 
+app.use(cors({
+    origin: [
+        "http://antsiferov-transactions.vercel.app", 
+        "http://localhost:3001"
+    ]
+})) // use CORS 
 
 let port = process.env.API_PORT
 if (port) app.listen(port) // port listening

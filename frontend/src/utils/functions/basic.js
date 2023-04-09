@@ -31,6 +31,7 @@ export async function sendData(method, url, data) {
         },
         body: data ? JSON.stringify(data) : null,
       });
+      console.log(response);
       const result = await response.json();
       delete controllers[url]; // delete controller after request is done
       return result;
