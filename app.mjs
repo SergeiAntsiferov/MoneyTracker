@@ -12,7 +12,10 @@ const __dirname = path.resolve(path.dirname(''))
 app.use(cors()) // use CORS 
 
 let port = process.env.API_PORT
-if (port) app.listen(port) // port listening
+if (port) {
+    app.listen(port) // port listening
+    console.log("Server is running on " + port + " port")
+}
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.resolve(__dirname, 'frontend', 'build')));
