@@ -37,10 +37,10 @@ function THead(props) {
   }
 
   // define sorting badge class
-  function defineBadgeClass(field, sorting) {
+  const defineBadgeClass = (field, sorting) => {
     if (sortField === field && sortState === sorting) return 'table__sort-icon_active';
     return 'table__sort-icon';
-  }
+  };
 
   return (
     <thead className="table__head">

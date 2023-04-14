@@ -21,6 +21,7 @@ function Transactions() {
     { id: 3, title: 200 },
     { id: 4, title: 1000 },
   ];
+
   const [limit, setLimit] = useState(limitOptions[0].title);
   const headers = [ // Table headers
     { title: 'Email', field: 'customer.email' },
@@ -75,8 +76,8 @@ function Transactions() {
     } else setTransactions([]); // reset transactions
   }
 
-  function sortTransactions(field, sorting) {
-    getTransactionsIDs({
+  async function sortTransactions(field, sorting) {
+    await getTransactionsIDs({
       sort: {
         field,
         sorting,
@@ -108,7 +109,7 @@ function Transactions() {
         name="Transactions"
         headers={headers}
         sortHandler={sortTransactions}
-        loading={isLoading}
+        // loading={isLoading}
       >
         <Select
           id="transactions__select"

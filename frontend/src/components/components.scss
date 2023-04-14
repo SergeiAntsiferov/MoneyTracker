@@ -2,25 +2,22 @@
 
 .table {
     border: 1px solid $secondary_color_2;
-    border-radius: $radius;
     display: grid;
     width: 100%;
     height: auto;
     max-height: 100%;
-    box-shadow: $default-shadow_active;
 
     &__head {
-        text-transform: uppercase;
+        font-weight: bold;
         
         & .table__row {
-            min-height: 48px;
+            min-height: 40px;
 
             &:first-child {
                 background: $secondary_color_2;
                 color: $font_color
             }
         }
-
     }
 
 
@@ -49,9 +46,9 @@
     
     &__row {
         display: grid;
+        grid-template-rows: minmax(56px, 1fr);
         grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
     }
-
 
     &__data {
         display: flex;
@@ -59,18 +56,17 @@
         justify-content: center;
         align-items: center;
         padding: 8px;
-        border: 1px solid $secondary_color_2;
         transition: $transition;
     }
 
     &__data-button {
+        position: relative;
         display: flex;
-        flex-direction: column;
+        flex-flow: row nowrap;
         justify-content: center;
         align-items: center;
         padding: 8px;
         height: 100%;
-        border: 1px solid $secondary_color_2;
         text-align: center;
         user-select: none;
         transition: $transition;
@@ -92,14 +88,14 @@
 
     &__data-button_active {
         display: flex;
-        flex-direction: column;
+        flex-flow: row nowrap;
         justify-content: center;
         align-items: center;
         border: 1px solid $secondary_color_2;
         padding: 8px;
         transition: $transition;
         text-align: center;
-        box-shadow: $default-shadow-inset_active;
+        background-color: $secondary_color_2;
         user-select: none;
 
 
@@ -107,20 +103,22 @@
             cursor: pointer;
             background-color: $secondary_color_2;
             color: $font_color;
-            box-shadow: $default-shadow-inset_active;
+            box-shadow: $default-shadow-inset;
             transition: $transition;
         }
         
         &:active {
-            background-color: $background_color;
+            background-color: $secondary_color_2;
             color: $font_color;
             box-shadow: $default-shadow-inset_active;
         }
     }
 
     &__sort-badge {
+        position: absolute;
+        right: 0;
         display: flex;
-        flex-direction: row nowrap;
+        flex-direction: column;
         justify-content: center;
         height: 100%;
         width: 1rem;
@@ -133,7 +131,8 @@
         &_active {
             transition: $transition;
             font-size: 0.8rem;
-            color: $primary_color
+            color: $primary_color;
+            text-shadow: 0px 1px 2px $primary_color ;
         }
     }
 
@@ -144,13 +143,60 @@
         margin: 1px;
         padding: 8px 0;
         background-color: $background_color;
-        & td {
-            border: 1px solid black;
-            border-radius: 4px;
-            margin: 2px;
-            padding: 2px;
-            min-width: 30px;
-            height: 30px;
+    }
+
+    &__pagination-button {
+        position: relative;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+
+        margin: 2px;
+        padding: 2px;
+        min-width: 30px;
+        height: 30px;
+        background-color: $secondary_color_2;
+        text-align: center;
+        user-select: none;
+        transition: $transition;
+
+        &:hover {
+            cursor: pointer;
+            box-shadow: $default-shadow-inset;
+            color: $secondary_color_2;
+            background-color: $primary_color;
+            transition: $transition;
+        }
+        
+        &:active {
+            background-color: $background_color;
+            color: $font_color;
+            box-shadow: $default-shadow-inset_active;
+        }
+        &_active {
+            color: $secondary_color_2;
+            background-color: $primary_color;
+            
+            &:active {
+                background-color: $secondary_color_2;
+                color: $font_color;
+                box-shadow: $default-shadow-inset_active;
+            }
+        }
+
+        &_disabled {
+            &:hover {
+                cursor: initial;
+                box-shadow: none;
+                background-color: $secondary_color_2;
+                color: $font_color;
+                transition: $transition;
+            }
+            
+            &:active {
+                box-shadow: none;
+            }
         }
     }
 }

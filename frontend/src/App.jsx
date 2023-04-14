@@ -13,21 +13,21 @@ import './components/UI/Buttons/buttons.module.scss';
 
 function App() {
   useEffect(() => {
-    getTheme();
+    // getTheme();
   }, []);
 
-  // get current color theme
-  async function getTheme() {
-    try {
-      const result = await sendData('GET', '/get_theme');
-      if (result) {
-        createAction('SET_CURRENT_THEME', result);
-        changeCssProperty(result?.styles);
-      } else return;
-    } catch (error) {
-      catchHandler(error, 'getTheme');
-    }
-  }
+  // // get current color theme
+  // async function getTheme() {
+  //   try {
+  //     const result = await sendData('GET', '/get_theme');
+  //     if (result) {
+  //       createAction('SET_CURRENT_THEME', result);
+  //       changeCssProperty(result?.styles);
+  //     } else return;
+  //   } catch (error) {
+  //     catchHandler(error, 'getTheme');
+  //   }
+  // }
 
   return (
     <div className="App" onClick={() => createAction('TOGGLE_SELECT', false)}>

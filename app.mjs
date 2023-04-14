@@ -17,10 +17,7 @@ app.use(cors({
 })) // use CORS 
 
 let port = process.env.API_PORT
-// if (port) app.listen(port) // port listening
-
-const server = app.listen(port)                 // Прослушивание порта
-export const serverAddress = server.address()   // export
+if (port) app.listen(port) // port listening
 
 app.get("/", (req, res) => {
     res.send(JSON.stringify(serverAddress))

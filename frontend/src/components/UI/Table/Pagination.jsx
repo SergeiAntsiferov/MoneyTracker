@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import TData from './TData';
+import PaginationButton from './PaginationButton';
 
 // Строка пагинации
 // array - array of element's id
@@ -79,31 +80,35 @@ function Pagination(props) {
   return (
     <tr className="table__pagination">
       {/* {showFirst && <TData onClick={() => stepHandler('<<')}>{'<<'}</TData>} */}
-      {showFirst && <TData onClick={() => stepHandler('<')}>{'<'}</TData>}
-      {showFirst && <TData onClick={() => chooseHandler(1)} active={activePage === 1}>1</TData>}
-      {showFirst && <TData>...</TData>}
+      {showFirst && <PaginationButton onClick={() => stepHandler('<')}>{'<'}</PaginationButton>}
+      {showFirst && (
+      <PaginationButton onClick={() => chooseHandler(1)} active={activePage === 1}>
+        1
+      </PaginationButton>
+      )}
+      {showFirst && <PaginationButton>...</PaginationButton>}
 
       {pages.slice(step * numberOfpages, step * numberOfpages + numberOfpages).map((index) => {
         const pageNumber = index + 1; // номер страницы
         return (
-          <TData
+          <PaginationButton
             key={index}
             onClick={() => chooseHandler(pageNumber)}
             active={activePage === pageNumber}
             loading={loadingPage === pageNumber}
           >
             {pageNumber}
-          </TData>
+          </PaginationButton>
         );
       })}
 
-      {showLast && <TData>...</TData>}
+      {showLast && <PaginationButton>...</PaginationButton>}
       {showLast && (
-      <TData onClick={() => chooseHandler(lastPage)} active={activePage === lastPage}>
+      <PaginationButton onClick={() => chooseHandler(lastPage)} active={activePage === lastPage}>
         {lastPage}
-      </TData>
+      </PaginationButton>
       )}
-      {showLast && <TData onClick={() => stepHandler('>')}>{'>'}</TData>}
+      {showLast && <PaginationButton onClick={() => stepHandler('>')}>{'>'}</PaginationButton>}
       {/* {showLast && <TData onClick={() => stepHandler('>>')}>{'>>'}</TData>} */}
     </tr>
   );
