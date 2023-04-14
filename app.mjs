@@ -17,11 +17,16 @@ app.use(cors({
 })) // use CORS 
 
 let port = process.env.API_PORT
-if (port) app.listen(port) // port listening
+// if (port) app.listen(port) // port listening
+
+const server = app.listen(port)                 // Прослушивание порта
+export const serverAddress = server.address()   // export
 
 app.get("/", (req, res) => {
-    res.send("test transactions server on " + port + " port")
+    res.send(JSON.stringify(serverAddress))
+    // res.send("test transactions server on " + port + " port")
 })
+
 
 // Get current color theme
 app.get("/get_theme", jsonParser, async (request, response) => {
