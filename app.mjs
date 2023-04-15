@@ -9,19 +9,13 @@ dotenv.config();
 const app = express(); // use express library
 const jsonParser = json() // JSON parsing
 
-app.use(cors({
-    origin: [
-        "http://antsiferov-transactions.vercel.app", 
-        "http://localhost:3001"
-    ]
-})) // use CORS 
+app.use(cors()) // use CORS 
 
 let port = process.env.API_PORT
 if (port) app.listen(port) // port listening
 
 app.get("/", (req, res) => {
-    res.send(JSON.stringify(serverAddress))
-    // res.send("test transactions server on " + port + " port")
+    res.send("test transactions server on " + port + " port")
 })
 
 
