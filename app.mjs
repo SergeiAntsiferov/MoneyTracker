@@ -1,9 +1,10 @@
 import express, { json } from "express"; // express library
 import cors from "cors"; // CORS module to prevent CORS errors 
 import catch_handler from './functions/catch_handler.mjs'
-import { db, sample_supplies } from './connections/mongo_connect.mjs'
+import { db, sample_supplies, uri } from './connections/mongo_connect.mjs'
 import { ObjectID } from './connections/mongo_connect.mjs';
 import * as dotenv from 'dotenv';
+
 dotenv.config();
 
 const app = express(); // use express library
@@ -55,7 +56,7 @@ app.post ("/api/change_theme", jsonParser, async (request, response) => {
 
 // Get transactions
 app.post("/api/get_transactions", jsonParser, async (request, response) => {
-    response.json({ test: 'test'})
+    response.json({ test: uri})
     // try {
     //     const { range, sort } = request.body
     //     const sales = sample_supplies.collection('sales');

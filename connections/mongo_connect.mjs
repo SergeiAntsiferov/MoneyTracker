@@ -5,7 +5,7 @@ dotenv.config();
 const login = process.env.MONGO_LOGIN // mongo auth login
 const password = process.env.MONGO_PASS // mongo auth password
 
-const uri = `mongodb+srv://${login}:${password}@main.eb7yrb9.mongodb.net/?retryWrites=true&w=majority`;
+export const uri = `mongodb+srv://${login}:${password}@main.eb7yrb9.mongodb.net/?retryWrites=true&w=majority`;
 
 const mongo = new MongoClient(uri);
 
