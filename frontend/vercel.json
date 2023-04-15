@@ -1,8 +1,8 @@
 {
     "redirects":[
         { 
-            "source" :"/api",
-            "destination":"https://transactions-backend.vercel.app/api"
+            "source" :"/api/:match*",
+            "destination":"https://transactions-backend.vercel.app/api/:match*"
         }
     ],
     "rewrites": [
