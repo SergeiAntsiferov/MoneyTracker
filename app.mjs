@@ -14,13 +14,13 @@ app.use(cors()) // use CORS
 let port = process.env.API_PORT
 if (port) app.listen(port) // port listening
 
-app.get("/api/", (req, res) => {
+app.get("/", (req, res) => {
     res.send("test transactions server on " + port + " port")
 })
 
 
 // Get current color theme
-app.get("/api/get_theme", jsonParser, async (request, response) => {
+app.get("/get_theme", jsonParser, async (request, response) => {
     try {
         const styles = db.collection('styles');
         const query = { active: true };
@@ -33,7 +33,7 @@ app.get("/api/get_theme", jsonParser, async (request, response) => {
 });
 
 // Change current color theme
-app.post ("/api/change_theme", jsonParser, async (request, response) => {
+app.post ("/change_theme", jsonParser, async (request, response) => {
     try {
         const { current_theme } = request.body
 
@@ -54,7 +54,7 @@ app.post ("/api/change_theme", jsonParser, async (request, response) => {
 });
 
 // Get transactions
-app.post("/api/get_transactions", jsonParser, async (request, response) => {
+app.post("/get_transactions", jsonParser, async (request, response) => {
     try {
         const { range, sort } = request.body
         const sales = sample_supplies.collection('sales');
