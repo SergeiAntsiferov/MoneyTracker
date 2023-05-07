@@ -1,10 +1,12 @@
-import { app, jsonParser } from '../app.mjs';
+import express, { json } from "express"; // express library
 import catch_handler from '../functions/catch_handler.mjs'
-import { db, sample_supplies } from '../connections/mongo_connect.mjs'
-import { ObjectID } from '../connections/mongo_connect.mjs';
+import { objectID, db, sample_supplies } from '../connections/mongo_connect.mjs'
+
+export const router = express.Router()
+const jsonParser = json() // JSON parsing
 
 // Get current color theme
-app.get("/get_theme", jsonParser, async (request, response) => {
+router.get("/get_theme", jsonParser, async (request, response) => {
     try {
         const styles = db.collection('styles');
         const query = { active: true };
@@ -17,7 +19,7 @@ app.get("/get_theme", jsonParser, async (request, response) => {
 });
 
 // Change current color theme
-app.post ("/change_theme", jsonParser, async (request, response) => {
+router.post ("/change_theme", jsonParser, async (request, response) => {
     try {
         const { current_theme } = request.body
 
@@ -38,14 +40,14 @@ app.post ("/change_theme", jsonParser, async (request, response) => {
 });
 
 // Get transactions
-app.post("/get_transactions", jsonParser, async (request, response) => {
+router.post("/get_transactions", jsonParser, async (request, response) => {
     try {
         const { range, sort } = request.body
         const sales = sample_supplies.collection('sales');
         let result;
 
         if (range) {
-            const prapareRange = range.map(id => ObjectID(id))
+            const prapareRange = range.map(id => objectID(id))
             result = await sales.find({ _id : { $in : prapareRange } }).toArray() // get data in range
                         
         } else if (sort) {
@@ -53,7 +55,7 @@ app.post("/get_transactions", jsonParser, async (request, response) => {
             if (!sorting) result = await sales.distinct("_id", {}) // get only id
             else {
                 let array = [] // array for results
-                await sales.find({}, {
+                sales.find({}, {
                     sort: { [field]: sorting }, // sorting parameter
                     projection: { "_id": 1 } // necessary fields
                 }).forEach(item => array.push(item["_id"])) // write results to array
@@ -74,51 +76,3 @@ app.post("/get_transactions", jsonParser, async (request, response) => {
 //         return { id: id, ...item }
 //     })
 // }
-
-// Get categories
-// app.get("/get_categories", jsonParser, async (request, response) => {
-//     try {
-//         const categories = db.collection('categories');
-        
-//         const result = await categories.find().toArray();
-//         const prepareResult = modifiyIdKeys(result)
-
-//         response.json(prepareResult) // send response to frontend
-//     } catch(error) { 
-//         catch_handler(error, "/get_categories") 
-//     }
-// });
-
-// categories handling
-// app.post("/handle_categories", jsonParser, async (request, response) => {
-//     try {
-
-//         const { action, category, id } = request.body
-//         const categories = db.collection('categories');
-
-//         switch(action) {
-
-//             case "create": {
-
-//             }
-//             break;
-
-//             case "edit": {
-//                 const { id, title, type } = category
-//                 await categories.updateOne({_id: ObjectID(id)}, {$set: {title: title, type: type}})
-//                 response.json("success") // send response to frontend
-//             }
-//             break;
-
-//             case "delete": {
-//                 await categories.deleteOne({_id: ObjectID(id)})
-//                 response.json("success") // send response to frontend
-//             }
-//             break;
-
-//             default: response.json("default")
-//         }
-//     } catch(error) { 
-//         catch_handler(error, "/handle_categories") 
-//     }
-// });

@@ -1,25 +1,23 @@
 import { catchHandler } from '../error_handling/error_handling';
 
-export const domen = process.env.REACT_APP_DOMEN;
+let domen = process.env.REACT_APP_DOMEN;
+if (window.location.hostname === 'localhost') domen = `http://localhost:4001${domen}`;
 // Fetch request functoin
 // method - (string)
 // url - (string)
 // data - (object)
 
-console.log(domen);
 const controllers = {}; // controllers
 
 // sending/requesting function
 export async function sendData(method, url, data) {
   try {
-    console.log(domen + url);
-
     // check existing controller for current url
     if (controllers[url]) { // if controller exist
       controllers[url]?.abort(); // stop it
       delete controllers[url]; // delete from existing
 
-    // else controller doesn't exist
+      // else controller doesn't exist
     } else {
       const controller = new AbortController(); // create it
       controllers[url] = controller; // add to existing controllers
@@ -31,7 +29,6 @@ export async function sendData(method, url, data) {
         },
         body: data ? JSON.stringify(data) : null,
       });
-      console.log(response);
       const result = await response.json();
       delete controllers[url]; // delete controller after request is done
       return result;

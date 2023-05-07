@@ -289,7 +289,6 @@
 
 .loading {
     position: relative;
-    background: $secondary_color_2;
     background: linear-gradient(-60deg, transparent 40%, rgba(255, 255, 255, 0.7) 50%, transparent 60%);
     background-size: 300% 300%;
     animation: gradient 1.5s ease infinite;
