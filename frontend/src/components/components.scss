@@ -1,21 +1,37 @@
 @import '../App.scss';
 
 .table {
-    border: 1px solid $secondary_color_2;
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
     width: 100%;
-    height: auto;
-    max-height: 100%;
+    min-width: 600px;
+    height: 100%;
+    
+    &__wrapper {
+        // border: 1px solid red;
+        width: 100%;
+        max-width: 1200px;
+        height: auto;
+        max-height: auto;
+        overflow: auto;
+        @extend %scrollStyle;
+    }
 
     &__head {
         font-weight: bold;
+        margin-right: 6px;
+        border-left: 1px solid $secondary_color_2;
+        border-top: 1px solid $secondary_color_2;
+        border-right: 1px solid $secondary_color_2;
+        border-top-left-radius: $radius;
+        border-top-right-radius: $radius;
         
         & .table__row {
-            min-height: 40px;
-
             &:first-child {
                 background: $secondary_color_2;
-                color: $font_color
+                color: $font_color;
             }
         }
     }
@@ -28,25 +44,38 @@
         overflow-y: auto;
         overflow-x: hidden;
         transition: .3s;
+        border-left: 1px solid $secondary_color_2;
+        @extend %scrollStyle;
 
         & .table__data {
             position: relative;
-            display: flex;
-            justify-content: center;
-            text-align: center;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 8px;
+            padding-left: 20%;
             overflow: inherit;
         }
         & .table__row {
+            border-right: 1px solid $secondary_color_2;
             &:nth-child(2n-1) {
                 background: $secondary_color_2;
                 color: $font_color
             }
         }
     }
+
+    &__foot {
+        margin-right: 6px;
+        border-left: 1px solid $secondary_color_2;
+        border-right: 1px solid $secondary_color_2;
+        border-bottom: 1px solid $secondary_color_2;
+        border-bottom-left-radius: $radius;
+        border-bottom-right-radius: $radius;
+    }
     
     &__row {
         display: grid;
-        grid-template-rows: minmax(56px, 1fr);
+        grid-template-rows: minmax(40px, 1fr);
         grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
     }
 
@@ -63,9 +92,10 @@
         position: relative;
         display: flex;
         flex-flow: row nowrap;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         padding: 8px;
+        padding-left: 20%;
         height: 100%;
         text-align: center;
         user-select: none;
@@ -89,14 +119,13 @@
     &__data-button_active {
         display: flex;
         flex-flow: row nowrap;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
-        border: 1px solid $secondary_color_2;
-        padding: 8px;
-        transition: $transition;
         text-align: center;
         background-color: $secondary_color_2;
+        box-shadow: $default-shadow-inset;
         user-select: none;
+        transition: $transition;
 
 
         &:hover {
@@ -258,7 +287,7 @@
         }
         
         &:hover {
-            box-shadow: 0 -2px 2px 1px $secondary_color_1;
+            box-shadow: 0 1px 2px 0 $primary_color;
             transition: .3s;
 
             &::after {
@@ -310,12 +339,17 @@
     .table {
         &__data {
             padding: 4px;
+            padding-left: 20%;
         }
     
         &__data-button {
             padding: 4px;
+            padding-left: 20%;
+
             &_active {
                 padding: 4px;
+                padding-left: 20%;
+
             }
         }
     }

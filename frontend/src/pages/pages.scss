@@ -143,8 +143,6 @@
 }
 
 #transactions {
-
-    max-width: 1000px;
     
     & .table__head {
         position: relative;
@@ -152,14 +150,11 @@
 
     &__select {
         position: absolute;
-        right: 4px;
+        left: 4px;
         top: 4px;
         min-width: 80px;
         width: 80px;
         text-transform: none;
-        & * {
-            color: initial;
-        }
     }
 }
 

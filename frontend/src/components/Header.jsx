@@ -9,10 +9,10 @@ function Header() {
       title: 'Main',
       link: '/',
     },
-    {
-      title: 'Settings',
-      link: '/settings',
-    },
+    // {
+    //   title: 'Settings',
+    //   link: '/settings',
+    // },
   ];
 
   return (

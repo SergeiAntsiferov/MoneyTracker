@@ -109,12 +109,11 @@ function Transactions() {
         name="Transactions"
         headers={headers}
         sortHandler={sortTransactions}
-        // loading={isLoading}
       >
         <Select
           id="transactions__select"
           array={limitOptions}
-          value={limit}
+          defaultValue={limitOptions[0]}
           onChoose={(choice) => setLimit(choice.title)}
         />
       </THead>
@@ -134,6 +133,12 @@ function Transactions() {
             </TRow>
           );
         })}
+        {transactions.length === 0
+          && isLoading && (
+          <TRow>
+            {headers.map((item) => <TData key={item.field} loading />)}
+          </TRow>
+        )}
       </TBody>
       <TFoot>
         <Pagination

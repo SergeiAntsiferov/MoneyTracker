@@ -55,7 +55,7 @@ router.post("/get_transactions", jsonParser, async (request, response) => {
             if (!sorting) result = await sales.distinct("_id", {}) // get only id
             else {
                 let array = [] // array for results
-                sales.find({}, {
+                await sales.find({}, {
                     sort: { [field]: sorting }, // sorting parameter
                     projection: { "_id": 1 } // necessary fields
                 }).forEach(item => array.push(item["_id"])) // write results to array
