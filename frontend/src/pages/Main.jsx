@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import Loader from '../../components/UI/Loader';
-import Pagination from '../../components/UI/Table/Pagination';
-import Select from '../../components/UI/Select';
-import Table from '../../components/UI/Table/Table';
-import TBody from '../../components/UI/Table/TBody';
-import TData from '../../components/UI/Table/TData';
-import TFoot from '../../components/UI/Table/TFoot';
-import THead from '../../components/UI/Table/THead';
-import TRow from '../../components/UI/Table/TRow';
-import { catchHandler } from '../../utils/error_handling/error_handling';
-import { sendData } from '../../utils/functions/basic';
+import Pagination from '../components/UI/Table/Pagination';
+import Select from '../components/UI/Select';
+import Table from '../components/UI/Table/Table';
+import TBody from '../components/UI/Table/TBody';
+import TData from '../components/UI/Table/TData';
+import TFoot from '../components/UI/Table/TFoot';
+import THead from '../components/UI/Table/THead';
+import TRow from '../components/UI/Table/TRow';
+import { catchHandler } from '../utils/error_handling/error_handling';
+import { sendData } from '../utils/functions/basic';
 
-function Transactions() {
+function Main() {
   const [isLoading, setIsLoading] = useState(false); // loading state
   const [transactions, setTransactions] = useState([]); // displayed transactions
   const [transactionsIDs, setTransactionsIDs] = useState([]); // id's of displayed transactions
@@ -104,51 +103,53 @@ function Transactions() {
   }
 
   return (
-    <Table id="transactions">
-      <THead
-        name="Transactions"
-        headers={headers}
-        sortHandler={sortTransactions}
-      >
-        <Select
-          id="transactions__select"
-          array={limitOptions}
-          defaultValue={limitOptions[0]}
-          onChoose={(choice) => setLimit(choice.title)}
-        />
-      </THead>
-      <TBody>
-        {transactions.map((row) => {
-          const { _id } = row;
-          return (
-            <TRow key={_id}>
-              {headers.map((item) => {
-                const { field } = item;
-                return (
-                  <TData key={field} loading={isLoading}>
-                    {defineData(row, field)}
-                  </TData>
-                );
-              })}
-            </TRow>
-          );
-        })}
-        {transactions.length === 0
+    <div className="page main">
+      <Table id="transactions">
+        <THead
+          name="Transactions"
+          headers={headers}
+          sortHandler={sortTransactions}
+        >
+          <Select
+            id="transactions__select"
+            array={limitOptions}
+            defaultValue={limitOptions[0]}
+            onChoose={(choice) => setLimit(choice.title)}
+          />
+        </THead>
+        <TBody>
+          {transactions.map((row) => {
+            const { _id } = row;
+            return (
+              <TRow key={_id}>
+                {headers.map((item) => {
+                  const { field } = item;
+                  return (
+                    <TData key={field} loading={isLoading}>
+                      {defineData(row, field)}
+                    </TData>
+                  );
+                })}
+              </TRow>
+            );
+          })}
+          {transactions.length === 0
           && isLoading && (
           <TRow>
             {headers.map((item) => <TData key={item.field} loading />)}
           </TRow>
-        )}
-      </TBody>
-      <TFoot>
-        <Pagination
-          array={transactionsIDs}
-          limit={limit}
-          handler={choosePage}
-        />
-      </TFoot>
-    </Table>
+          )}
+        </TBody>
+        <TFoot>
+          <Pagination
+            array={transactionsIDs}
+            limit={limit}
+            handler={choosePage}
+          />
+        </TFoot>
+      </Table>
+    </div>
   );
 }
 
-export default Transactions;
+export default Main;

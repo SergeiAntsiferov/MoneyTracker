@@ -9,25 +9,19 @@ import './App.scss';
 import './pages/pages.scss';
 import './components/components.scss';
 import './components/UI/ui.scss';
-import './components/UI/Buttons/buttons.module.scss';
 
 function App() {
-  useEffect(() => {
-    // getTheme();
-  }, []);
+  const defaultStyles = {
+    '--font_color': 'initial',
+    '--primary_color': '#624DE3',
+    '--secondary_color_1': '#555555',
+    '--secondary_color_2': '#f0eefe',
+    '--background_color': '#ffffff',
+  };
 
-  // // get current color theme
-  // async function getTheme() {
-  //   try {
-  //     const result = await sendData('GET', '/get_theme');
-  //     if (result) {
-  //       createAction('SET_CURRENT_THEME', result);
-  //       changeCssProperty(result?.styles);
-  //     } else return;
-  //   } catch (error) {
-  //     catchHandler(error, 'getTheme');
-  //   }
-  // }
+  useEffect(() => {
+    changeCssProperty(defaultStyles);
+  }, []);
 
   return (
     <div className="App" onClick={() => createAction('TOGGLE_SELECT', false)}>

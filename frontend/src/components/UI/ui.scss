@@ -1,4 +1,4 @@
-@import '../../App.scss';
+@use '../../variables' as var;
 
 .input {
     width: 100%;
@@ -9,9 +9,9 @@
     
     text-align: center;
     border: none;
-    border-radius: $radius;
+    border-radius: var.$radius;
     outline: none;
-    box-shadow: $default-shadow_inset;
+    box-shadow: var.$default-shadow_inset;
     transition: 0.3s;
     word-break: break-word;
     font-size: 1.05rem;
@@ -20,7 +20,7 @@
 
     &:hover {
         // cursor: pointer;
-        // box-shadow: $default-shadow_inset_active;
+        // box-shadow: var.$default-shadow_inset_active;
         transition: .3s;
 
         &::placeholder {
@@ -36,33 +36,33 @@
     }
 
     &_invalid {
-        box-shadow: $default-shadow_inset_red;
+        box-shadow: var.$default-shadow_inset_red;
         transition: .3s;
     }
 
     &_disabled {
         background-color: transparent;
-        // background-color: $secondary_color_2;
+        // background-color: var.$secondary_color_2;
         // box-shadow: initial;
         transition: .3s;
     }
 }
 
 .toggle {
-    border: 1px solid $secondary_color_2;
+    border: 1px solid var.$secondary_color_2;
     position: relative;
     min-width: 68px;
     width: 68px;
     height: 32px;
     border-radius: 6px;
-    box-shadow: $default-shadow_inset;
-    background: $background_color;
+    box-shadow: var.$default-shadow_inset;
+    background: var.$background_color;
     transition: .3s;
     user-select: none;
 
     &:hover {
         cursor: pointer;
-        box-shadow: $default-shadow_inset_active;
+        box-shadow: var.$default-shadow_inset_active;
     }
 
     &__circle {
@@ -72,17 +72,17 @@
         transform: translate(3px, 3px);
         border-radius: 4px;
         transition: .3s;
-        background: $secondary_color_1;
-        box-shadow: 1px 1px 1px 0px $secondary_color_2
+        background: var.$secondary_color_1;
+        box-shadow: 1px 1px 1px 0px var.$secondary_color_2
     }
 
     &_active { 
-        border: 1px solid $secondary_color_2;
+        border: 1px solid var.$secondary_color_2;
         transition: .3s;
     
         & .toggle__circle {
             transform: translate(38px, 3px);
-            background: $primary_color;
+            background: var.$primary_color;
         }
     }
 }
@@ -94,8 +94,8 @@
     max-width: 300px;
     height: 32px;
     user-select: none;
-    background-color: $background_color;
-    border-radius: $radius;
+    background-color: var.$background_color;
+    border-radius: var.$radius;
 
     &__header {
         position: relative;
@@ -110,15 +110,15 @@
 
         outline: none;
         // border: 1px solid black;
-        border-radius: $radius;
-        box-shadow: $default-shadow_inset;
+        border-radius: var.$radius;
+        box-shadow: var.$default-shadow_inset;
         transition: .3s;
         font-size: 1.05rem;
         overflow: hidden;
 
         &:hover {
             cursor: pointer;
-            box-shadow: $default-shadow_inset_active;
+            box-shadow: var.$default-shadow_inset_active;
             transition: .3s
         }
     }
@@ -126,7 +126,7 @@
     &__title {
         max-width: calc(100% - 24px);
         overflow: hidden;
-        color: $font_color
+        color: var.$font_color
     }
 
     &__chevron {
@@ -163,21 +163,20 @@
         max-height: 0;
         overflow: hidden;
         opacity: 0;
-        transition: $transition;
+        transition: var.$transition;
     }
 
     &__dropdown_active {
-
         max-height: 200px;
         padding: 12px 0;
         overflow-y: auto;
-        border-radius: $radius;
-        box-shadow: $default-shadow_active;
-        background-color: $background_color;
+        border-radius: var.$radius;
+        box-shadow: var.$default-shadow_active;
+        background-color: var.$background_color;
         opacity: 1;
-        transition: $transition;
+        transition: var.$transition;
         z-index: 1;
-        @extend %scrollStyle;
+        @include var.scroll-styles;
     }
 
     &__option {
@@ -196,19 +195,19 @@
         &:hover {
             cursor: pointer;
             transition: .3s;
-            background-color: $primary_color;
-            color: $secondary_color_2;
-            // box-shadow: $default-shadow_inset;
+            background-color: var.$primary_color;
+            color: var.$secondary_color_2;
+            // box-shadow: var.$default-shadow_inset;
         }
     }
 
     &__option_active {
-        background-color: $secondary_color_2;
-        color: $font_color;
+        background-color: var.$secondary_color_2;
+        color: var.$font_color;
         min-height: 32px;
         height: fit-content;
         max-height: 60px;
-        box-shadow: $default-shadow_inset;
+        box-shadow: var.$default-shadow_inset;
         transition: .3s;
         overflow: hidden;
 
@@ -227,8 +226,8 @@
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        background-color: $primary_color;
-        color: $primary_color;
+        background-color: var.$primary_color;
+        color: var.$primary_color;
         transform-origin: 4px 10px;
         animation: loader 2s infinite linear;
       
@@ -240,8 +239,8 @@
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        background-color: $primary_color;
-        color: $primary_color;
+        background-color: var.$primary_color;
+        color: var.$primary_color;
 
     }
 

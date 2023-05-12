@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;1,400&display=swap');
+
+// declaring scss variables
+$font_color: var(--font_color); // primary font color
+$primary_color: var(--primary_color); // main color
+$secondary_color_1: var(--secondary_color_1); // secondary color 1
+$secondary_color_2: var(--secondary_color_2); // secondary color 2
+$background_color: var(--background_color); // secondary color 2
+
+$header_height: 60px; // header's height
+$page_height: calc(100vh - $header_height); // page height
+$default-shadow: 1px 1px 2px 0 #0F1955;
+$default-shadow_active: 2px 2px 3px 0 #0F1955;
+$default-shadow_inset: 1px 1px 2px 0 #0F1955 inset;
+$default-shadow_inset_red: 1px 1px 2px 0 #b00000 inset;
+$default-shadow_inset_active: 2px 2px 3px 0 #0F1955 inset;
+$transition: .3s;
+$radius: 4px;
+
+// Scroll styles
+@mixin scroll-styles {
+    scrollbar-color: $secondary_color_2 transparent; // стили скролла для firefox
+    scrollbar-width: thin; // стили скролла для firefox
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: $primary_color;
+    }
+    
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+}

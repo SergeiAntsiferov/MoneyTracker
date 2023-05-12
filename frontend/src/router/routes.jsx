@@ -1,13 +1,5 @@
-import Main from '../pages/Main/Main';
-import Settings from '../pages/Settings/Settings';
+import Main from '../pages/Main';
 
 export const routes = [
-  {
-    path: '/',
-    component: <Main />,
-  },
-  {
-    path: '/settings',
-    component: <Settings />,
-  },
+  { path: '/', component: <Main /> },
 ];

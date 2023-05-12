@@ -17,7 +17,7 @@ function AppRouter() {
             <ErrorBoundary>
               {route.component}
             </ErrorBoundary>
-                          )}
+          )}
         />
       ))}
     </Routes>

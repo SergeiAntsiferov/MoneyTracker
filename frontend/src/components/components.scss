@@ -1,4 +1,4 @@
-@import '../App.scss';
+@use '../variables' as var;
 
 .table {
     display: flex;
@@ -6,7 +6,7 @@
     justify-content: flex-start;
 
     width: 100%;
-    min-width: 600px;
+    min-width: 500px;
     height: 100%;
     
     &__wrapper {
@@ -16,26 +16,25 @@
         height: auto;
         max-height: auto;
         overflow: auto;
-        @extend %scrollStyle;
+        @include var.scroll-styles;
     }
 
     &__head {
         font-weight: bold;
         margin-right: 6px;
-        border-left: 1px solid $secondary_color_2;
-        border-top: 1px solid $secondary_color_2;
-        border-right: 1px solid $secondary_color_2;
-        border-top-left-radius: $radius;
-        border-top-right-radius: $radius;
+        border-left: 1px solid var.$secondary_color_2;
+        border-top: 1px solid var.$secondary_color_2;
+        border-right: 1px solid var.$secondary_color_2;
+        border-top-left-radius: var.$radius;
+        border-top-right-radius: var.$radius;
         
         & .table__row {
             &:first-child {
-                background: $secondary_color_2;
-                color: $font_color;
+                background: var.$secondary_color_2;
+                color: var.$font_color;
             }
         }
     }
-
 
     &__body {
         display: flex;
@@ -44,8 +43,8 @@
         overflow-y: auto;
         overflow-x: hidden;
         transition: .3s;
-        border-left: 1px solid $secondary_color_2;
-        @extend %scrollStyle;
+        border-left: 1px solid var.$secondary_color_2;
+        @include var.scroll-styles;
 
         & .table__data {
             position: relative;
@@ -56,21 +55,21 @@
             overflow: inherit;
         }
         & .table__row {
-            border-right: 1px solid $secondary_color_2;
+            border-right: 1px solid var.$secondary_color_2;
             &:nth-child(2n-1) {
-                background: $secondary_color_2;
-                color: $font_color
+                background: var.$secondary_color_2;
+                color: var.$font_color
             }
         }
     }
 
     &__foot {
         margin-right: 6px;
-        border-left: 1px solid $secondary_color_2;
-        border-right: 1px solid $secondary_color_2;
-        border-bottom: 1px solid $secondary_color_2;
-        border-bottom-left-radius: $radius;
-        border-bottom-right-radius: $radius;
+        border-left: 1px solid var.$secondary_color_2;
+        border-right: 1px solid var.$secondary_color_2;
+        border-bottom: 1px solid var.$secondary_color_2;
+        border-bottom-left-radius: var.$radius;
+        border-bottom-right-radius: var.$radius;
     }
     
     &__row {
@@ -85,7 +84,7 @@
         justify-content: center;
         align-items: center;
         padding: 8px;
-        transition: $transition;
+        transition: var.$transition;
     }
 
     &__data-button {
@@ -99,20 +98,20 @@
         height: 100%;
         text-align: center;
         user-select: none;
-        transition: $transition;
+        transition: var.$transition;
 
         &:hover {
             cursor: pointer;
-            box-shadow: $default-shadow-inset;
-            color: $font_color;
-            background-color: $secondary_color_2;
-            transition: $transition;
+            box-shadow: var.$default-shadow-inset;
+            color: var.$font_color;
+            background-color: var.$secondary_color_2;
+            transition: var.$transition;
         }
         
         &:active {
-            background-color: $background_color;
-            color: $font_color;
-            box-shadow: $default-shadow-inset_active;
+            background-color: var.$background_color;
+            color: var.$font_color;
+            box-shadow: var.$default-shadow-inset_active;
         }
     }
 
@@ -122,24 +121,24 @@
         justify-content: flex-start;
         align-items: center;
         text-align: center;
-        background-color: $secondary_color_2;
-        box-shadow: $default-shadow-inset;
+        background-color: var.$secondary_color_2;
+        box-shadow: var.$default-shadow-inset;
         user-select: none;
-        transition: $transition;
+        transition: var.$transition;
 
 
         &:hover {
             cursor: pointer;
-            background-color: $secondary_color_2;
-            color: $font_color;
-            box-shadow: $default-shadow-inset;
-            transition: $transition;
+            background-color: var.$secondary_color_2;
+            color: var.$font_color;
+            box-shadow: var.$default-shadow-inset;
+            transition: var.$transition;
         }
         
         &:active {
-            background-color: $secondary_color_2;
-            color: $font_color;
-            box-shadow: $default-shadow-inset_active;
+            background-color: var.$secondary_color_2;
+            color: var.$font_color;
+            box-shadow: var.$default-shadow-inset_active;
         }
     }
 
@@ -156,12 +155,12 @@
 
     &__sort-icon {
         font-size: 0.8rem;
-        transition: $transition;
+        transition: var.$transition;
         &_active {
-            transition: $transition;
+            transition: var.$transition;
             font-size: 0.8rem;
-            color: $primary_color;
-            text-shadow: 0px 1px 2px $primary_color ;
+            color: var.$primary_color;
+            text-shadow: 0px 1px 2px var.$primary_color ;
         }
     }
 
@@ -171,7 +170,7 @@
         justify-content: center;
         margin: 1px;
         padding: 8px 0;
-        background-color: $background_color;
+        background-color: var.$background_color;
     }
 
     &__pagination-button {
@@ -185,32 +184,32 @@
         padding: 2px;
         min-width: 30px;
         height: 30px;
-        background-color: $secondary_color_2;
+        background-color: var.$secondary_color_2;
         text-align: center;
         user-select: none;
-        transition: $transition;
+        transition: var.$transition;
 
         &:hover {
             cursor: pointer;
-            box-shadow: $default-shadow-inset;
-            color: $secondary_color_2;
-            background-color: $primary_color;
-            transition: $transition;
+            box-shadow: var.$default-shadow-inset;
+            color: var.$secondary_color_2;
+            background-color: var.$primary_color;
+            transition: var.$transition;
         }
         
         &:active {
-            background-color: $background_color;
-            color: $font_color;
-            box-shadow: $default-shadow-inset_active;
+            background-color: var.$background_color;
+            color: var.$font_color;
+            box-shadow: var.$default-shadow-inset_active;
         }
         &_active {
-            color: $secondary_color_2;
-            background-color: $primary_color;
+            color: var.$secondary_color_2;
+            background-color: var.$primary_color;
             
             &:active {
-                background-color: $secondary_color_2;
-                color: $font_color;
-                box-shadow: $default-shadow-inset_active;
+                background-color: var.$secondary_color_2;
+                color: var.$font_color;
+                box-shadow: var.$default-shadow-inset_active;
             }
         }
 
@@ -218,9 +217,9 @@
             &:hover {
                 cursor: initial;
                 box-shadow: none;
-                background-color: $secondary_color_2;
-                color: $font_color;
-                transition: $transition;
+                background-color: var.$secondary_color_2;
+                color: var.$font_color;
+                transition: var.$transition;
             }
             
             &:active {
@@ -235,10 +234,10 @@
     display: flex;
     position: relative;
     justify-content: space-between;
-    height: $header_height;
+    height: var.$header_height;
     padding: 0 16px;
-    background-color: $secondary_color_2;
-    color: $font_color;
+    background-color: var.$secondary_color_2;
+    color: var.$font_color;
 
 
     &__title {
@@ -248,7 +247,7 @@
         text-transform: uppercase;
         text-align: end;
         font-size: 1.3rem;
-        color: $font_color;
+        color: var.$font_color;
     }
 
 }
@@ -262,7 +261,7 @@
     width: auto;
     height: 100%;
 
-    background-color: $secondary_color_2;
+    background-color: var.$secondary_color_2;
     
     &__button {
         position: relative;
@@ -282,12 +281,12 @@
             width: 0;
             height: 3px;
             bottom: 0;
-            background-color: $primary_color;
+            background-color: var.$primary_color;
             transition: .3s;
         }
         
         &:hover {
-            box-shadow: 0 1px 2px 0 $primary_color;
+            box-shadow: 0 1px 2px 0 var.$primary_color;
             transition: .3s;
 
             &::after {
@@ -297,7 +296,7 @@
         }
 
         &:active {
-            box-shadow: 0 -2px 0px 0px $secondary_color_1;
+            box-shadow: 0 -2px 0px 0px var.$secondary_color_1;
         }
 
         &_active {
@@ -309,7 +308,7 @@
                 width: 100%;
                 height: 3px;
                 bottom: 0;
-                background-color: $primary_color;
+                background-color: var.$primary_color;
                 transition: .3s;
             }
         }
@@ -322,10 +321,10 @@
     background-size: 300% 300%;
     animation: gradient 1.5s ease infinite;
     color: transparent;
-    transition: $transition;
+    transition: var.$transition;
     & > * {
         color: transparent;
-        transition: $transition;
+        transition: var.$transition;
     }
 }
 
