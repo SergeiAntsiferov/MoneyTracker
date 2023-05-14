@@ -1,3 +1,4 @@
+import { StringObject, UniversalObject } from '../../types';
 import { catchHandler } from '../error_handling/error_handling';
 
 let domen = process.env.REACT_APP_DOMEN;
@@ -7,10 +8,10 @@ if (window.location.hostname === 'localhost') domen = `http://localhost:4001${do
 // url - (string)
 // data - (object)
 
-const controllers = {}; // controllers
+const controllers: UniversalObject = {}; // controllers
 
 // sending/requesting function
-export async function sendData(method, url, data) {
+export async function sendData(method: string, url: string, data: UniversalObject) {
   try {
     // check existing controller for current url
     if (controllers[url]) { // if controller exist

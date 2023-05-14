@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { ChangeEventHandler, FocusEventHandler } from 'react';
 
-function Input(props) {
+
+type InputProps = {
+  onChange: ChangeEventHandler,
+  onBlur: FocusEventHandler,
+  value: string,
+  defaultValue: string,
+  placeholder: string,
+  invalid: Boolean
+}
+
+function Input(props: InputProps) {
   const {
     onChange, onBlur, value, defaultValue, placeholder, invalid,
   } = props;

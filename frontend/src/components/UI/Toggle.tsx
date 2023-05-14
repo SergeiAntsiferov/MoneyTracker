@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
-function Toggle(props) {
+type ToggleProps = {
+  state?: string,
+  onClick: MouseEventHandler
+}
+
+function Toggle(props: ToggleProps) {
   const { state, onClick } = props;
   return (
     <div onClick={onClick} className={state ? 'toggle toggle_active' : 'toggle'}>

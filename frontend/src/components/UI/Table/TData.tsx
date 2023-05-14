@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { MouseEventHandler, ReactNode } from 'react';
 
-function TData(props) {
+type TDataProps = {
+  onClick?: MouseEventHandler,
+  active?: Boolean,
+  loading?: Boolean,
+  children?: ReactNode
+}
+
+function TData(props: TDataProps) {
   const {
     onClick, loading, children, active,
   } = props;

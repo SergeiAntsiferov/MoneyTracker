@@ -1,15 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { AnyAction, configureStore } from '@reduxjs/toolkit';
 import { catchHandler } from '../utils/error_handling/error_handling';
 
 const showReducerDefault = {
   select: {},
 };
 
-function showReducer(state = showReducerDefault, action) {
+function showReducer(state = showReducerDefault, action: AnyAction) {
   try {
     switch (action.type) {
       case 'TOGGLE_SELECT':
-        return { ...state, select: { [action.payload.key]: action.payload.value } };
+        return { ...state, select: action.payload };
 
       default:
         return state;
@@ -24,9 +24,7 @@ export const store = configureStore({
   reducer: {
     visibility: showReducer,
   },
-});
+})
 
-// Функция создания action (type - тип action, payload - данные для изменения состояния)
-export function createAction(type, payload) {
-  store.dispatch({ type, payload });
-}
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>

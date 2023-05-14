@@ -7,7 +7,7 @@ function Header() {
   const navButtons = [
     {
       title: 'Main',
-      link: '/',
+      link: '/'
     },
   ];
 

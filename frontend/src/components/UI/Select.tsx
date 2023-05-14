@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { createAction } from '../../redux/store';
+import React, { useState, MouseEvent } from 'react';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+
+export type SelectObject = {
+  id: number | string,
+  title: string | number | null
+}
+
+type SelectProps = {
+  id: string,
+  array: SelectObject[] | [],
+  onChoose?: Function,
+  defaultValue?: SelectObject
+}
 
 // Custom select
-// array must includes objects like:
-//  {
-//    id: number,
-//    title: "string"
-//  }
-
-function Select(props) {
+function Select(props: SelectProps) {
   const {
     id, // id DOM element
     array, // array of options
@@ -17,19 +22,19 @@ function Select(props) {
     onChoose, // choose handler
   } = props;
 
-  const isActive = useSelector((state) => state.visibility.select[id]);
+  const dispatch = useAppDispatch()
+  const isActive = useAppSelector(state => state.visibility?.select[id]);
   const [activeOption, setActiveOption] = useState(defaultValue);
 
-  function optionHandler(row) {
+  function optionHandler(row: SelectObject): void {
     if (onChoose) onChoose(row);
     setActiveOption(row);
-    createAction('TOGGLE_SELECT', { key: id, value: false });
+    dispatch({type: 'TOGGLE_SELECT', payload: { [id]: false }});
   }
 
-  // toggle visibility dropdown menu
-  function toggleSelect(e) {
-    e.stopPropagation();
-    createAction('TOGGLE_SELECT', { key: id, value: !isActive });
+  function toggleSelect(event: MouseEvent<HTMLDivElement>): void {
+    event.stopPropagation();
+    dispatch({type: 'TOGGLE_SELECT', payload: { [id]: !isActive }});
   }
 
   return (

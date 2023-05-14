@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-function Table(props) {
+type TableProps = {
+  id: string,
+  children?: ReactNode
+}
+
+function Table (props: TableProps) {
   const { id, children } = props;
   return (
     <div className="table__wrapper">

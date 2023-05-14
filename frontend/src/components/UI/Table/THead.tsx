@@ -1,17 +1,30 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import TData from './TData';
 import TRow from './TRow';
+import type { StringObject} from '../../../types'
 
-function THead(props) {
+type THeadProps = {
+  name?: string,
+  headers?: StringObject[] | [],
+  sortHandler?: Function,
+  loading?: Boolean,
+  children?: ReactNode
+}
+
+function THead(props: THeadProps) {
   const {
-    name, headers, sortHandler, loading, children,
+    name, 
+    headers = [], 
+    sortHandler = (): void => {}, 
+    loading, 
+    children,
   } = props;
 
-  const [sortState, setSortState] = useState(null);
-  const [sortField, setSortField] = useState(null);
+  const [sortState, setSortState] = useState<number | null>(null);
+  const [sortField, setSortField] = useState<string | null>(null);
 
-  //
-  function sortByField(field) {
+
+  function sortByField(field: string) {
     setSortField(field);
     if (sortField === field) {
       switch (sortState) {
@@ -37,7 +50,7 @@ function THead(props) {
   }
 
   // define sorting badge class
-  const defineBadgeClass = (field, sorting) => {
+  const defineBadgeClass = (field: string, sorting: number) => {
     if (sortField === field && sortState === sorting) return 'table__sort-icon_active';
     return 'table__sort-icon';
   };

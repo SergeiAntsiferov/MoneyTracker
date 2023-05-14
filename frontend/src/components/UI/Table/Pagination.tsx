@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import TData from './TData';
 import PaginationButton from './PaginationButton';
 
+
+type PaginationProps = {
+  array: number[] | string[], // array of element's id
+  limit: number, // limit - display limit per page
+  handler: Function // page choose handler
+}
+
 // Строка пагинации
-// array - array of element's id
-// limit - display limit per page
-// handler - page choose handler
-function Pagination(props) {
+function Pagination(props: PaginationProps) {
   const { array, limit, handler } = props;
 
-  const [loadingPage, setLoadingPage] = useState(null); // загружаемая страница
-  const [activePage, setActivePage] = useState(1); // активная страница
-  const [pages, setPages] = useState([]); // массив страниц
+  const [loadingPage, setLoadingPage] = useState<number | null>(null); // загружаемая страница
+  const [activePage, setActivePage] = useState<number>(1); // активная страница
+  const [pages, setPages] = useState<number[]>([]); // массив страниц
   const [step, setStep] = useState(0); // текущий шаг (при большом количестве страниц)
-  const numberOfpages = 10; // количество страниц для выбора
+  const numberOfpages = 5; // количество страниц для выбора
   const lastPage = pages.length;
   const showFirst = step > 0;
   const showLast = step * numberOfpages + numberOfpages < lastPage;
 
   // Обработка выбора страницы
-  async function chooseHandler(number) {
+  async function chooseHandler(number: number) {
     if (loadingPage !== number) {
       setActivePage(number); // Записать активную страницу в состояние
       setLoadingPage(number); // выбранная страница загружается
@@ -38,7 +41,8 @@ function Pagination(props) {
       const ratio = array.length / limit; // отношение длины к лимиту
       if (ratio > 1) { // если отношение больше 1
         // записывается массив чисел длиной ratio округлённого в большую сторону
-        setPages([...Array(Math.ceil(ratio)).keys()]);
+        const arrayOfPages = Array.from({ length: Math.ceil(ratio) }, (_, i) => i)
+        setPages(arrayOfPages);
         // Если текущая страница меньше пересчитанного количества страниц
         if (activePage < ratio) chooseHandler(activePage); // выбрать ее же
         else chooseHandler(1); // иначе выбрать первую страницу
@@ -53,7 +57,7 @@ function Pagination(props) {
   }
 
   // Обработчик шагв
-  function stepHandler(direction) {
+  function stepHandler(direction: string) {
     switch (direction) {
       case '<': {
         if (step * numberOfpages - numberOfpages < 0) return setStep(0);

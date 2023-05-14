@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Pagination from '../components/UI/Table/Pagination';
-import Select from '../components/UI/Select';
+import Select, { SelectObject } from '../components/UI/Select';
 import Table from '../components/UI/Table/Table';
 import TBody from '../components/UI/Table/TBody';
 import TData from '../components/UI/Table/TData';
@@ -9,9 +9,10 @@ import THead from '../components/UI/Table/THead';
 import TRow from '../components/UI/Table/TRow';
 import { catchHandler } from '../utils/error_handling/error_handling';
 import { sendData } from '../utils/functions/basic';
+import { UniversalObject } from '../types';
 
 function Main() {
-  const [isLoading, setIsLoading] = useState(false); // loading state
+  const [isLoading, setIsLoading] = useState<Boolean>(false); // loading state
   const [transactions, setTransactions] = useState([]); // displayed transactions
   const [transactionsIDs, setTransactionsIDs] = useState([]); // id's of displayed transactions
   const limitOptions = [ // display limit options
@@ -21,7 +22,7 @@ function Main() {
     { id: 4, title: 1000 },
   ];
 
-  const [limit, setLimit] = useState(limitOptions[0].title);
+  const [limit, setLimit] = useState<number>(limitOptions[0].title);
   const headers = [ // Table headers
     { title: 'Email', field: 'customer.email' },
     { title: 'Location', field: 'storeLocation' },
@@ -34,7 +35,7 @@ function Main() {
   }, []);
 
   // get transactions ID's
-  async function getTransactionsIDs(sort) {
+  async function getTransactionsIDs(sort?: { sort: {field: string, sorting: number | null} }): Promise<void> {
     try {
       setIsLoading(true);
       let requestData = {}; // request's data
@@ -49,7 +50,7 @@ function Main() {
   }
 
   // get transactions
-  async function getTransactions(range) {
+  async function getTransactions(range: {range: number[]}) {
     try {
       setIsLoading(true);
       if (range) {
@@ -64,7 +65,7 @@ function Main() {
   }
 
   // Choose page
-  async function choosePage(number) {
+  async function choosePage(number: number) {
     const fromIndex = number * limit - limit; // count start index
     const toIndex = number * limit; // count end index
     const range = transactionsIDs.slice(fromIndex, toIndex); // cut out range from initial array
@@ -75,7 +76,7 @@ function Main() {
     } else setTransactions([]); // reset transactions
   }
 
-  async function sortTransactions(field, sorting) {
+  async function sortTransactions(field: string, sorting: number | null) {
     await getTransactionsIDs({
       sort: {
         field,
@@ -85,11 +86,11 @@ function Main() {
   }
 
   // Определить данные объекта
-  function defineData(object, field) {
+  function defineData(object: UniversalObject, field: string) {
     const keys = field.split('.'); // разделить ключ схемы через точку
 
     // Углубиться в объект и получить данные
-    function deepIntoTheObject(data, deep) {
+    function deepIntoTheObject(data: UniversalObject | null | undefined, deep: number): any {
       // если нет данных - возвращаем null
       if (!data) return null;
       // Если глубина равна длине массива вложенности ключей
@@ -114,7 +115,7 @@ function Main() {
             id="transactions__select"
             array={limitOptions}
             defaultValue={limitOptions[0]}
-            onChoose={(choice) => setLimit(choice.title)}
+            onChoose={(choice: {id: string, title: number}) => setLimit(choice.title)}
           />
         </THead>
         <TBody>

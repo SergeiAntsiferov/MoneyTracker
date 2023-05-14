@@ -1,6 +1,7 @@
 import React from 'react';
+import type { Children } from '../../../types';
 
-function TRow(props) {
+function TRow(props: Children) {
   const { children } = props;
 
   return (

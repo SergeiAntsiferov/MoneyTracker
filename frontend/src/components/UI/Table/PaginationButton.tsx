@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { MouseEventHandler, ReactNode } from 'react';
 
-function PaginationButton(props) {
+type PaginationButtonProps = {
+  onClick?: MouseEventHandler //
+  loading?: Boolean, //
+  active?: Boolean, //
+  children?: ReactNode //
+}
+
+function PaginationButton(props: PaginationButtonProps) {
   const {
-    onClick, loading, children, active,
+    onClick, 
+    loading, 
+    children, 
+    active,
   } = props;
 
   const defineClassName = () => {
