@@ -9,6 +9,10 @@ function Header() {
       title: 'Main',
       link: '/'
     },
+    {
+      title: 'Table',
+      link: '/table'
+    },
   ];
 
   return (

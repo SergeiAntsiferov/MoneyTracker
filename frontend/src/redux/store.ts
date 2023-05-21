@@ -1,11 +1,17 @@
 import { AnyAction, configureStore } from '@reduxjs/toolkit';
 import { catchHandler } from '../utils/error_handling/error_handling';
 
-const showReducerDefault = {
+const reducerDefault = {
   select: {},
+  headers: [ // Table headers
+  { title: 'Email', field: 'customer.email' },
+  { title: 'Location', field: 'storeLocation' },
+  { title: 'Date', field: 'saleDate' },
+  { title: 'Method', field: 'purchaseMethod' },
+]
 };
 
-function showReducer(state = showReducerDefault, action: AnyAction) {
+function generalReducer(state = reducerDefault, action: AnyAction) {
   try {
     switch (action.type) {
       case 'TOGGLE_SELECT':
@@ -22,7 +28,7 @@ function showReducer(state = showReducerDefault, action: AnyAction) {
 // Создание хранилища (Используется в HOC <Provider> )
 export const store = configureStore({
   reducer: {
-    visibility: showReducer,
+    general: generalReducer,
   },
 })
 

@@ -23,7 +23,7 @@ function Select(props: SelectProps) {
   } = props;
 
   const dispatch = useAppDispatch()
-  const isActive = useAppSelector(state => state.visibility?.select[id]);
+  const isActive = useAppSelector(state => state.general?.select[id]);
   const [activeOption, setActiveOption] = useState(defaultValue);
 
   function optionHandler(row: SelectObject): void {

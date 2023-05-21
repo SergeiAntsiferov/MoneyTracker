@@ -10,11 +10,15 @@ import TRow from '../components/UI/Table/TRow';
 import { catchHandler } from '../utils/error_handling/error_handling';
 import { sendData } from '../utils/functions/basic';
 import { UniversalObject } from '../types';
+import { useAppSelector } from '../redux/hooks';
+import { store } from '../redux/store';
 
-function Main() {
+function Transactions() {
   const [isLoading, setIsLoading] = useState<Boolean>(false); // loading state
   const [transactions, setTransactions] = useState([]); // displayed transactions
   const [transactionsIDs, setTransactionsIDs] = useState([]); // id's of displayed transactions
+  const headers = useAppSelector(state => state.general?.headers) // headers default
+
   const limitOptions = [ // display limit options
     { id: 1, title: 50 },
     { id: 2, title: 100 },
@@ -23,12 +27,7 @@ function Main() {
   ];
 
   const [limit, setLimit] = useState<number>(limitOptions[0].title);
-  const headers = [ // Table headers
-    { title: 'Email', field: 'customer.email' },
-    { title: 'Location', field: 'storeLocation' },
-    { title: 'Date', field: 'saleDate' },
-    { title: 'Method', field: 'purchaseMethod' },
-  ];
+
 
   useEffect(() => {
     getTransactionsIDs();
@@ -104,7 +103,7 @@ function Main() {
   }
 
   return (
-    <div className="page main">
+    <div className="page transactions">
       <Table id="transactions">
         <THead
           name="Transactions"
@@ -123,7 +122,7 @@ function Main() {
             const { _id } = row;
             return (
               <TRow key={_id}>
-                {headers.map((item) => {
+                {headers?.map((item) => {
                   const { field } = item;
                   return (
                     <TData key={field} loading={isLoading}>
@@ -137,7 +136,7 @@ function Main() {
           {transactions.length === 0
           && isLoading && (
           <TRow>
-            {headers.map((item) => <TData key={item.field} loading />)}
+            {headers?.map((item) => <TData key={item.field} loading />)}
           </TRow>
           )}
         </TBody>
@@ -153,4 +152,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default Transactions;

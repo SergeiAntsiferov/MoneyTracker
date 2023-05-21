@@ -24,9 +24,8 @@ class ErrorBoundary extends React.Component {
     const { hasError } = this.state;
     if (hasError) {
       return (
-        <div className="main">
-          <p className="main__title">Что-то пошло не так...</p>
-          <p className="main__title">Обновите страницу, если ситуация повторяется - обратитесь в службу поддержки</p>
+        <div className="page main">
+          <p className="page main__title">Something went wrong...</p>
         </div>
       );
     } return children;

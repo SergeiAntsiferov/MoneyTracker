@@ -1,22 +1,50 @@
 @use '../variables' as var;
 
+$page_padding: 16px;
+
 .page {
     display: flex;
     justify-content: flex-start;
 
     width: 100%;
     height: var.$page_height;
-
-    padding: 16px;
+    overflow-y: auto;
+    padding: $page_padding;
 
     background-color: var.$background_color;
-
+    @include var.scroll-styles;
 }
 
-.main {
+.transactions {
     display: flex;
     justify-content: center;
     padding: 20px;
+}
+
+.chart {
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+
+    &__loader {
+        height: calc(var.$page_height - 2*$page_padding);
+        width: calc(var.$page_height - 2*$page_padding);
+        border-radius: 12px;
+        border: 1px solid var.$secondary_color_2;
+        margin: 4px;
+        
+        position: relative;
+        background: linear-gradient(-60deg, transparent 40%,var.$secondary_color_2 50%, transparent 60%);
+        background-size: 300% 300%;
+        animation: gradient 1.5s ease infinite;
+        transition: var.$transition;
+    }
+}
+
+.canvas {
+    border-radius: 12px;
+    border: 1px solid var.$secondary_color_2;
+    margin: 4px;
 }
 
 #transactions {

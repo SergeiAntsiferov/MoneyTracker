@@ -8,6 +8,7 @@ const jsonParser = json() // JSON parsing
 // Get transactions
 router.post("/get_transactions", jsonParser, async (request, response) => {
     try {
+        console.log("request - get_transactions. Body: ", request.body)
         const { range, sort } = request.body
         const sales = sample_supplies.collection('sales');
         let result;
@@ -32,5 +33,34 @@ router.post("/get_transactions", jsonParser, async (request, response) => {
         response.json(result) // send response to frontend
     } catch(error) { 
         catch_handler(error, "/get_transactions") 
+    }
+});
+
+// Get data for charts
+router.post("/get_chart_data", jsonParser, async (request, response) => {
+    try {
+        console.log("request - get_chart_data. Body: ", request.body)
+        const { charts } = request.body
+        const sales = sample_supplies.collection('sales');
+        let resData = {}
+
+        for (const chart of charts) {
+            resData[chart.title] = {}
+            const result = await sales.aggregate([
+                { $group: { _id: `$${chart.field}`, count: { $sum: 1 } } },
+                { $sort: { count: 1 } }
+            ]).toArray();
+        
+            resData[chart.title].labels = result.map((item) => {
+                const type = typeof item["_id"]
+                if (type === 'number') return item["_id"].toString()
+                if (type === 'boolean') return item["_id"] ? "Yes" : "No"
+                else return item["_id"]
+            })
+            resData[chart.title].values = result.map(item => item.count)
+        }
+        response.json(resData) // send response to frontend
+    } catch(error) { 
+        catch_handler(error, "/get_chart_data") 
     }
 });

@@ -1,6 +1,8 @@
 import React from 'react';
-import Main from '../pages/Main';
+import Transactions from '../pages/Transactions';
+import Chart from '../pages/Chart/Chart';
 
 export const routes = [
-  { path: '/', component: <Main /> },
+  { path: '/', component: <Chart /> },
+  { path: '/table', component: <Transactions /> },
 ];
